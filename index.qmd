@@ -3,7 +3,7 @@ title: "OJS Dashboard"
 format:
   html:
     page-layout: full
-    theme: cosmo
+    theme: darkly
 ---
 
 ```{ojs}
