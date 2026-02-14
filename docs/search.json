@@ -1,0 +1,450 @@
+[
+  {
+    "objectID": "VISUAL_GUIDE.html",
+    "href": "VISUAL_GUIDE.html",
+    "title": "OJS Dashboard - Visual Guide",
+    "section": "",
+    "text": "The OJS Dashboard provides an interactive interface with the following components:\n\n\n┌─────────────────────────────────────────────────────────────────────┐\n│                          OJS Dashboard                               │\n├─────────────────┬───────────────────────────────────────────────────┤\n│                 │                                                     │\n│ Select Species  │          Map - Click on a polygon to view plot     │\n│                 │                                                     │\n│ ┌─────────────┐ │   ┌─────────────────────────────────────────┐     │\n│ │ Dropdown    │ │   │                                         │     │\n│ │ ▼ Oak       │ │   │         Interactive Leaflet Map        │     │\n│ └─────────────┘ │   │                                         │     │\n│                 │   │   • Blue polygons = Selected species    │     │\n│ Filtered        │   │   • Gray polygons = Other species       │     │\n│ Polygons:       │   │                                         │     │\n│                 │   │   Click blue polygon → Plot popup      │     │\n│ Showing 2       │   │                                         │     │\n│ polygon(s) for  │   │                                         │     │\n│ Oak             │   │                                         │     │\n│                 │   │                                         │     │\n│                 │   └─────────────────────────────────────────┘     │\n│                 │                                                     │\n└─────────────────┴───────────────────────────────────────────────────┘\n\n\n\n\n\n\n\nDropdown menu with all unique species from the dataset\nDynamically filters the map to show only polygons containing the selected species\nShows count of matching polygons\n\n\n\n\n\nDisplays all polygons from the GeoJSON data\nBlue polygons: Contain the selected species (clickable)\nGray polygons: Contain other species (non-interactive)\nHover effects on clickable polygons\nTooltips showing polygon ID and species\n\n\n\n\nWhen clicking on a blue polygon: - Popup appears at the polygon center - Shows polygon ID and species name - Displays an Observable Plot bar chart - Chart visualizes temporal data from the plot column\n\n\n\n\n\nInitial Load: Dashboard loads with first species selected by default\nChange Species: Select different species from dropdown\nMap Updates: Polygons automatically re-color based on selection\nView Details: Click any blue polygon to see its plot\nClose Popup: Click map background or ‘X’ to close popup\n\n\n\n\nspecies_plots.csv (tabular data)\n    ↓\n[Species Dropdown] → filtered_polygon_ids\n    ↓\npolygons.geojson (spatial data)\n    ↓\n[Leaflet Map] → styled polygons\n    ↓\n[Click Event] → Popup with Observable Plot\n\n\n\n\nQuarto: Document framework\nOJS: Reactive JavaScript runtime\nLeaflet: Interactive mapping library\nObservable Plot: Data visualization\nD3.js: Data loading and manipulation\n\n\n\n\n\n\n\nSelect “Oak” from dropdown\nMap shows 2 blue polygons (poly_1, poly_3)\nClick poly_1 → See bar chart with Oak data for poly_1\nClick poly_3 → See bar chart with Oak data for poly_3\n\n\n\n\n\nSelect “Pine” from dropdown\nMap updates to show 2 different blue polygons (poly_2, poly_5)\nPrevious Oak polygons turn gray\nClick poly_2 → See bar chart with Pine data for poly_2\n\n\n\n\n\nSelect “Birch” from dropdown\nMap shows 1 blue polygon (poly_4)\nAll other polygons are gray\nClick poly_4 → See bar chart with Birch data for poly_4"
+  },
+  {
+    "objectID": "VISUAL_GUIDE.html#dashboard-layout",
+    "href": "VISUAL_GUIDE.html#dashboard-layout",
+    "title": "OJS Dashboard - Visual Guide",
+    "section": "",
+    "text": "The OJS Dashboard provides an interactive interface with the following components:\n\n\n┌─────────────────────────────────────────────────────────────────────┐\n│                          OJS Dashboard                               │\n├─────────────────┬───────────────────────────────────────────────────┤\n│                 │                                                     │\n│ Select Species  │          Map - Click on a polygon to view plot     │\n│                 │                                                     │\n│ ┌─────────────┐ │   ┌─────────────────────────────────────────┐     │\n│ │ Dropdown    │ │   │                                         │     │\n│ │ ▼ Oak       │ │   │         Interactive Leaflet Map        │     │\n│ └─────────────┘ │   │                                         │     │\n│                 │   │   • Blue polygons = Selected species    │     │\n│ Filtered        │   │   • Gray polygons = Other species       │     │\n│ Polygons:       │   │                                         │     │\n│                 │   │   Click blue polygon → Plot popup      │     │\n│ Showing 2       │   │                                         │     │\n│ polygon(s) for  │   │                                         │     │\n│ Oak             │   │                                         │     │\n│                 │   │                                         │     │\n│                 │   └─────────────────────────────────────────┘     │\n│                 │                                                     │\n└─────────────────┴───────────────────────────────────────────────────┘"
+  },
+  {
+    "objectID": "VISUAL_GUIDE.html#features",
+    "href": "VISUAL_GUIDE.html#features",
+    "title": "OJS Dashboard - Visual Guide",
+    "section": "",
+    "text": "Dropdown menu with all unique species from the dataset\nDynamically filters the map to show only polygons containing the selected species\nShows count of matching polygons\n\n\n\n\n\nDisplays all polygons from the GeoJSON data\nBlue polygons: Contain the selected species (clickable)\nGray polygons: Contain other species (non-interactive)\nHover effects on clickable polygons\nTooltips showing polygon ID and species\n\n\n\n\nWhen clicking on a blue polygon: - Popup appears at the polygon center - Shows polygon ID and species name - Displays an Observable Plot bar chart - Chart visualizes temporal data from the plot column"
+  },
+  {
+    "objectID": "VISUAL_GUIDE.html#workflow",
+    "href": "VISUAL_GUIDE.html#workflow",
+    "title": "OJS Dashboard - Visual Guide",
+    "section": "",
+    "text": "Initial Load: Dashboard loads with first species selected by default\nChange Species: Select different species from dropdown\nMap Updates: Polygons automatically re-color based on selection\nView Details: Click any blue polygon to see its plot\nClose Popup: Click map background or ‘X’ to close popup"
+  },
+  {
+    "objectID": "VISUAL_GUIDE.html#data-flow",
+    "href": "VISUAL_GUIDE.html#data-flow",
+    "title": "OJS Dashboard - Visual Guide",
+    "section": "",
+    "text": "species_plots.csv (tabular data)\n    ↓\n[Species Dropdown] → filtered_polygon_ids\n    ↓\npolygons.geojson (spatial data)\n    ↓\n[Leaflet Map] → styled polygons\n    ↓\n[Click Event] → Popup with Observable Plot"
+  },
+  {
+    "objectID": "VISUAL_GUIDE.html#technologies",
+    "href": "VISUAL_GUIDE.html#technologies",
+    "title": "OJS Dashboard - Visual Guide",
+    "section": "",
+    "text": "Quarto: Document framework\nOJS: Reactive JavaScript runtime\nLeaflet: Interactive mapping library\nObservable Plot: Data visualization\nD3.js: Data loading and manipulation"
+  },
+  {
+    "objectID": "VISUAL_GUIDE.html#example-interactions",
+    "href": "VISUAL_GUIDE.html#example-interactions",
+    "title": "OJS Dashboard - Visual Guide",
+    "section": "",
+    "text": "Select “Oak” from dropdown\nMap shows 2 blue polygons (poly_1, poly_3)\nClick poly_1 → See bar chart with Oak data for poly_1\nClick poly_3 → See bar chart with Oak data for poly_3\n\n\n\n\n\nSelect “Pine” from dropdown\nMap updates to show 2 different blue polygons (poly_2, poly_5)\nPrevious Oak polygons turn gray\nClick poly_2 → See bar chart with Pine data for poly_2\n\n\n\n\n\nSelect “Birch” from dropdown\nMap shows 1 blue polygon (poly_4)\nAll other polygons are gray\nClick poly_4 → See bar chart with Birch data for poly_4"
+  },
+  {
+    "objectID": "REACTIVITY_FIX.html",
+    "href": "REACTIVITY_FIX.html",
+    "title": "Reactive Polygon Filtering Fix",
+    "section": "",
+    "text": "The OJS dashboard had a critical reactivity issue: - Only poly_4 (species: Birch) remained blue and clickable - Other polygons showed tooltips but clicking them did nothing - Changing species in the dropdown had no effect on which polygons were clickable - The polygon colors didn’t update when selecting different species\n\n\n\nThe original code structure had everything in a single OJS cell:\n```javascript\n{\n  const map = L.map(map_container).setView([51.15, 4.15], 11);\n  const polygonLayer = L.layerGroup().addTo(map);\n  \n  function updatePolygons() {\n    // ... update logic\n  }\n  \n  filtered_polygon_ids; // Add dependency\n  updatePolygons();\n  \n  return map_container;\n}\nThe Problem: While this cell referenced filtered_polygon_ids at the end, OJS evaluates the entire cell as a single unit. The cell ran once on initial load and never re-executed when filtered_polygon_ids changed. The reference to filtered_polygon_ids created a dependency, but didn’t actually trigger the update logic to run.\nSince “Birch” is alphabetically first, it was selected by default, making only poly_4 (Birch) appear blue and clickable initially.\n\n\n\nSeparated the code into multiple OJS cells with clear responsibilities:\n\n\n```javascript\nmap = {\n  const m = L.map(map_container).setView([51.15, 4.15], 11);\n  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\n    attribution: '© OpenStreetMap contributors'\n  }).addTo(m);\n  return m;\n}\n\n\n\n```javascript\npolygonLayer = L.layerGroup().addTo(map)\n\n\n\n```javascript\nfunction getPlotData(polygon_id) { ... }\n```javascript\nfunction createPopupContent(polygon_id, species_name) { ... }\n\n\n\n```javascript\n{\n  // Clear existing polygons\n  polygonLayer.clearLayers();\n  \n  // Add all polygons with appropriate styling\n  polygons_geojson.features.forEach(feature =&gt; {\n    const polygon_id = feature.properties.polygon_id;\n    const is_filtered = filtered_polygon_ids.includes(polygon_id);\n    // ... styling and event handlers\n  });\n  \n  // Fit map bounds\n  if (filtered_polygon_ids.length &gt; 0) {\n    const bounds = polygonLayer.getBounds();\n    if (bounds.isValid()) {\n      map.fitBounds(bounds, { padding: [50, 50] });\n    }\n  }\n}\n\n\n\n\nThe reactive data flow:\n\nUser selects species from dropdown → selected_species changes\nfiltered_data = species_data.filter(d =&gt; d.species === selected_species) updates\nfiltered_polygon_ids = filtered_data.map(d =&gt; d.polygons_id) updates\nThe reactive polygon cell detects the change and re-executes:\n\nClears all existing polygons from the map\nIterates through all polygons in the GeoJSON\nApplies blue styling to filtered polygons\nApplies gray styling to non-filtered polygons\nAttaches click handlers ONLY to blue (filtered) polygons\nFits the map bounds to show the filtered polygons\n\n\n\n\n\n✅ Selecting “Birch” → poly_4 turns blue and is clickable ✅ Selecting “Oak” → poly_1 and poly_3 turn blue and are clickable ✅ Selecting “Pine” → poly_2 and poly_5 turn blue and are clickable ✅ Clicking any blue polygon opens a popup with its plot ✅ Hover tooltips work on all polygons ✅ Gray polygons are not clickable\n\n\n\nOJS Reactivity Rules: 1. Each {ojs} cell is a separate reactive unit 2. When a cell references a variable (like filtered_polygon_ids), it becomes a dependency 3. When a dependency changes, the cell re-executes 4. Variables assigned with = (like map = or polygonLayer =) are available to other cells 5. Function definitions are global and available to all cells\nWhy the Original Code Failed: - The entire block was one cell that ran once - Adding filtered_polygon_ids; at the end created a dependency but didn’t help - The cell couldn’t re-run properly because it tried to re-initialize the map - Variables like map and polygonLayer were scoped locally with const\nWhy the New Code Works: - Map initialization is separate and runs once - The reactive cell ONLY contains the update logic - Dependencies (filtered_polygon_ids, polygons_geojson, species_data) are clear - When any dependency changes, just the reactive cell re-executes - This efficiently updates the polygon styling and event handlers"
+  },
+  {
+    "objectID": "REACTIVITY_FIX.html#problem",
+    "href": "REACTIVITY_FIX.html#problem",
+    "title": "Reactive Polygon Filtering Fix",
+    "section": "",
+    "text": "The OJS dashboard had a critical reactivity issue: - Only poly_4 (species: Birch) remained blue and clickable - Other polygons showed tooltips but clicking them did nothing - Changing species in the dropdown had no effect on which polygons were clickable - The polygon colors didn’t update when selecting different species"
+  },
+  {
+    "objectID": "REACTIVITY_FIX.html#root-cause",
+    "href": "REACTIVITY_FIX.html#root-cause",
+    "title": "Reactive Polygon Filtering Fix",
+    "section": "",
+    "text": "The original code structure had everything in a single OJS cell:\n```javascript\n{\n  const map = L.map(map_container).setView([51.15, 4.15], 11);\n  const polygonLayer = L.layerGroup().addTo(map);\n  \n  function updatePolygons() {\n    // ... update logic\n  }\n  \n  filtered_polygon_ids; // Add dependency\n  updatePolygons();\n  \n  return map_container;\n}\nThe Problem: While this cell referenced filtered_polygon_ids at the end, OJS evaluates the entire cell as a single unit. The cell ran once on initial load and never re-executed when filtered_polygon_ids changed. The reference to filtered_polygon_ids created a dependency, but didn’t actually trigger the update logic to run.\nSince “Birch” is alphabetically first, it was selected by default, making only poly_4 (Birch) appear blue and clickable initially."
+  },
+  {
+    "objectID": "REACTIVITY_FIX.html#solution",
+    "href": "REACTIVITY_FIX.html#solution",
+    "title": "Reactive Polygon Filtering Fix",
+    "section": "",
+    "text": "Separated the code into multiple OJS cells with clear responsibilities:\n\n\n```javascript\nmap = {\n  const m = L.map(map_container).setView([51.15, 4.15], 11);\n  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\n    attribution: '© OpenStreetMap contributors'\n  }).addTo(m);\n  return m;\n}\n\n\n\n```javascript\npolygonLayer = L.layerGroup().addTo(map)\n\n\n\n```javascript\nfunction getPlotData(polygon_id) { ... }\n```javascript\nfunction createPopupContent(polygon_id, species_name) { ... }\n\n\n\n```javascript\n{\n  // Clear existing polygons\n  polygonLayer.clearLayers();\n  \n  // Add all polygons with appropriate styling\n  polygons_geojson.features.forEach(feature =&gt; {\n    const polygon_id = feature.properties.polygon_id;\n    const is_filtered = filtered_polygon_ids.includes(polygon_id);\n    // ... styling and event handlers\n  });\n  \n  // Fit map bounds\n  if (filtered_polygon_ids.length &gt; 0) {\n    const bounds = polygonLayer.getBounds();\n    if (bounds.isValid()) {\n      map.fitBounds(bounds, { padding: [50, 50] });\n    }\n  }\n}"
+  },
+  {
+    "objectID": "REACTIVITY_FIX.html#how-it-works-now",
+    "href": "REACTIVITY_FIX.html#how-it-works-now",
+    "title": "Reactive Polygon Filtering Fix",
+    "section": "",
+    "text": "The reactive data flow:\n\nUser selects species from dropdown → selected_species changes\nfiltered_data = species_data.filter(d =&gt; d.species === selected_species) updates\nfiltered_polygon_ids = filtered_data.map(d =&gt; d.polygons_id) updates\nThe reactive polygon cell detects the change and re-executes:\n\nClears all existing polygons from the map\nIterates through all polygons in the GeoJSON\nApplies blue styling to filtered polygons\nApplies gray styling to non-filtered polygons\nAttaches click handlers ONLY to blue (filtered) polygons\nFits the map bounds to show the filtered polygons"
+  },
+  {
+    "objectID": "REACTIVITY_FIX.html#expected-behavior-after-fix",
+    "href": "REACTIVITY_FIX.html#expected-behavior-after-fix",
+    "title": "Reactive Polygon Filtering Fix",
+    "section": "",
+    "text": "✅ Selecting “Birch” → poly_4 turns blue and is clickable ✅ Selecting “Oak” → poly_1 and poly_3 turn blue and are clickable ✅ Selecting “Pine” → poly_2 and poly_5 turn blue and are clickable ✅ Clicking any blue polygon opens a popup with its plot ✅ Hover tooltips work on all polygons ✅ Gray polygons are not clickable"
+  },
+  {
+    "objectID": "REACTIVITY_FIX.html#key-insights",
+    "href": "REACTIVITY_FIX.html#key-insights",
+    "title": "Reactive Polygon Filtering Fix",
+    "section": "",
+    "text": "OJS Reactivity Rules: 1. Each {ojs} cell is a separate reactive unit 2. When a cell references a variable (like filtered_polygon_ids), it becomes a dependency 3. When a dependency changes, the cell re-executes 4. Variables assigned with = (like map = or polygonLayer =) are available to other cells 5. Function definitions are global and available to all cells\nWhy the Original Code Failed: - The entire block was one cell that ran once - Adding filtered_polygon_ids; at the end created a dependency but didn’t help - The cell couldn’t re-run properly because it tried to re-initialize the map - Variables like map and polygonLayer were scoped locally with const\nWhy the New Code Works: - Map initialization is separate and runs once - The reactive cell ONLY contains the update logic - Dependencies (filtered_polygon_ids, polygons_geojson, species_data) are clear - When any dependency changes, just the reactive cell re-executes - This efficiently updates the polygon styling and event handlers"
+  },
+  {
+    "objectID": "MULTIPLE_SPECIES_ENHANCEMENT.html",
+    "href": "MULTIPLE_SPECIES_ENHANCEMENT.html",
+    "title": "Multiple Species Per Polygon Enhancement",
+    "section": "",
+    "text": "The dashboard has been enhanced to support a more realistic data model where multiple species can exist in the same polygon. Each unique combination of species and polygon has its own associated plot.\n\n\n\n\n\n\nOne-to-one relationship: Each polygon had exactly one species\n5 records total (one per polygon)\n\n\n\n\n\nMany-to-many relationship: Each polygon can have multiple species\n10 records total (multiple species per polygon)\nEach unique (polygons_id, species) combination has one plot\n\n\n\n\n\n\n\n\nPolygon ID\nSpecies Count\nSpecies Present\n\n\n\n\npoly_1\n2\nOak, Pine\n\n\npoly_2\n2\nPine, Birch\n\n\npoly_3\n3\nOak, Pine, Birch\n\n\npoly_4\n2\nBirch, Oak\n\n\npoly_5\n1\nPine\n\n\n\n\n\n\n\n\n\nUser selects a species from the dropdown (e.g., “Oak”)\nMap highlights all polygons containing that species in blue\nFor “Oak”, polygons 1, 3, and 4 would be highlighted\n\n\n\n\nHovering: - Tooltip shows all species in the polygon with count - Example: “poly_3: Oak, Pine, Birch (3 species)”\nClicking: - Popup displays the plot for the selected species in that polygon - Each species/polygon combination has unique plot data - If you select “Oak” and click poly_3, you see Oak’s plot for poly_3 - If you switch to “Pine” and click poly_3, you see Pine’s plot for poly_3\n\n\n\n\n\n\n\nEnhanced Data Structure\n\nCSV now contains multiple rows per polygon\nEach row represents one species/polygon combination\n\nUpdated Function: getPlotData()\nfunction getPlotData(polygon_id, species_name) {\n  const record = species_data.find(d =&gt; \n    d.polygons_id === polygon_id && d.species === species_name\n  );\n  if (record) {\n    return JSON.parse(record.plot);\n  }\n  return null;\n}\n\nNow requires both polygon_id AND species_name\nFinds the specific record matching both criteria\n\nUpdated Tooltip Logic\nconst polygon_records = species_data.filter(d =&gt; d.polygons_id === polygon_id);\nconst all_species = polygon_records.map(d =&gt; d.species);\nconst species_count = all_species.length;\n\nShows all species present in a polygon\nProvides species count for quick reference\n\nUpdated Click Handler\nlayer.on('click', () =&gt; {\n  const popupContent = createPopupContent(polygon_id, selected_species);\n  // ...\n});\n\nUses the currently selected species\nEnsures correct plot is shown for the selection\n\n\n\n\n\n\n\nRealistic Data Model: Reflects real-world scenarios where multiple species coexist\nFlexible Analysis: Users can explore different species in the same polygon\nRich Information: Tooltips provide overview of all species per polygon\nIntuitive Interaction: Clear connection between selection and displayed plot\n\n\n\n\n\nExplore Oak Distribution\n\nSelect “Oak” from dropdown\nSee polygons 1, 3, and 4 highlighted\nHover over poly_3 to see: “poly_3: Oak, Pine, Birch (3 species)”\nClick poly_3 to view Oak’s specific plot for that polygon\n\nSwitch to Pine Analysis\n\nSelect “Pine” from dropdown\nSee polygons 1, 2, 3, and 5 highlighted\nClick poly_3 again\nNow see Pine’s plot for poly_3 (different from Oak’s plot)\n\n\n\n\n\nThe key constraint is: Each (polygons_id, species) combination must be unique\nThis ensures: - No duplicate records - Each combination has exactly one plot - Clear mapping from selection to visualization - Consistent user experience"
+  },
+  {
+    "objectID": "MULTIPLE_SPECIES_ENHANCEMENT.html#overview",
+    "href": "MULTIPLE_SPECIES_ENHANCEMENT.html#overview",
+    "title": "Multiple Species Per Polygon Enhancement",
+    "section": "",
+    "text": "The dashboard has been enhanced to support a more realistic data model where multiple species can exist in the same polygon. Each unique combination of species and polygon has its own associated plot."
+  },
+  {
+    "objectID": "MULTIPLE_SPECIES_ENHANCEMENT.html#data-model",
+    "href": "MULTIPLE_SPECIES_ENHANCEMENT.html#data-model",
+    "title": "Multiple Species Per Polygon Enhancement",
+    "section": "",
+    "text": "One-to-one relationship: Each polygon had exactly one species\n5 records total (one per polygon)\n\n\n\n\n\nMany-to-many relationship: Each polygon can have multiple species\n10 records total (multiple species per polygon)\nEach unique (polygons_id, species) combination has one plot"
+  },
+  {
+    "objectID": "MULTIPLE_SPECIES_ENHANCEMENT.html#dataset-composition",
+    "href": "MULTIPLE_SPECIES_ENHANCEMENT.html#dataset-composition",
+    "title": "Multiple Species Per Polygon Enhancement",
+    "section": "",
+    "text": "Polygon ID\nSpecies Count\nSpecies Present\n\n\n\n\npoly_1\n2\nOak, Pine\n\n\npoly_2\n2\nPine, Birch\n\n\npoly_3\n3\nOak, Pine, Birch\n\n\npoly_4\n2\nBirch, Oak\n\n\npoly_5\n1\nPine"
+  },
+  {
+    "objectID": "MULTIPLE_SPECIES_ENHANCEMENT.html#user-experience",
+    "href": "MULTIPLE_SPECIES_ENHANCEMENT.html#user-experience",
+    "title": "Multiple Species Per Polygon Enhancement",
+    "section": "",
+    "text": "User selects a species from the dropdown (e.g., “Oak”)\nMap highlights all polygons containing that species in blue\nFor “Oak”, polygons 1, 3, and 4 would be highlighted\n\n\n\n\nHovering: - Tooltip shows all species in the polygon with count - Example: “poly_3: Oak, Pine, Birch (3 species)”\nClicking: - Popup displays the plot for the selected species in that polygon - Each species/polygon combination has unique plot data - If you select “Oak” and click poly_3, you see Oak’s plot for poly_3 - If you switch to “Pine” and click poly_3, you see Pine’s plot for poly_3"
+  },
+  {
+    "objectID": "MULTIPLE_SPECIES_ENHANCEMENT.html#technical-implementation",
+    "href": "MULTIPLE_SPECIES_ENHANCEMENT.html#technical-implementation",
+    "title": "Multiple Species Per Polygon Enhancement",
+    "section": "",
+    "text": "Enhanced Data Structure\n\nCSV now contains multiple rows per polygon\nEach row represents one species/polygon combination\n\nUpdated Function: getPlotData()\nfunction getPlotData(polygon_id, species_name) {\n  const record = species_data.find(d =&gt; \n    d.polygons_id === polygon_id && d.species === species_name\n  );\n  if (record) {\n    return JSON.parse(record.plot);\n  }\n  return null;\n}\n\nNow requires both polygon_id AND species_name\nFinds the specific record matching both criteria\n\nUpdated Tooltip Logic\nconst polygon_records = species_data.filter(d =&gt; d.polygons_id === polygon_id);\nconst all_species = polygon_records.map(d =&gt; d.species);\nconst species_count = all_species.length;\n\nShows all species present in a polygon\nProvides species count for quick reference\n\nUpdated Click Handler\nlayer.on('click', () =&gt; {\n  const popupContent = createPopupContent(polygon_id, selected_species);\n  // ...\n});\n\nUses the currently selected species\nEnsures correct plot is shown for the selection"
+  },
+  {
+    "objectID": "MULTIPLE_SPECIES_ENHANCEMENT.html#benefits",
+    "href": "MULTIPLE_SPECIES_ENHANCEMENT.html#benefits",
+    "title": "Multiple Species Per Polygon Enhancement",
+    "section": "",
+    "text": "Realistic Data Model: Reflects real-world scenarios where multiple species coexist\nFlexible Analysis: Users can explore different species in the same polygon\nRich Information: Tooltips provide overview of all species per polygon\nIntuitive Interaction: Clear connection between selection and displayed plot"
+  },
+  {
+    "objectID": "MULTIPLE_SPECIES_ENHANCEMENT.html#example-workflow",
+    "href": "MULTIPLE_SPECIES_ENHANCEMENT.html#example-workflow",
+    "title": "Multiple Species Per Polygon Enhancement",
+    "section": "",
+    "text": "Explore Oak Distribution\n\nSelect “Oak” from dropdown\nSee polygons 1, 3, and 4 highlighted\nHover over poly_3 to see: “poly_3: Oak, Pine, Birch (3 species)”\nClick poly_3 to view Oak’s specific plot for that polygon\n\nSwitch to Pine Analysis\n\nSelect “Pine” from dropdown\nSee polygons 1, 2, 3, and 5 highlighted\nClick poly_3 again\nNow see Pine’s plot for poly_3 (different from Oak’s plot)"
+  },
+  {
+    "objectID": "MULTIPLE_SPECIES_ENHANCEMENT.html#data-uniqueness-constraint",
+    "href": "MULTIPLE_SPECIES_ENHANCEMENT.html#data-uniqueness-constraint",
+    "title": "Multiple Species Per Polygon Enhancement",
+    "section": "",
+    "text": "The key constraint is: Each (polygons_id, species) combination must be unique\nThis ensures: - No duplicate records - Each combination has exactly one plot - Clear mapping from selection to visualization - Consistent user experience"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "OJS Dashboard",
+    "section": "",
+    "text": "d3 = require(\"d3@7\")\nL = require(\"leaflet@1.9.4\")\nPlot = require(\"@observablehq/plot@0.6\")\n\n// Add Leaflet CSS\nhtml`&lt;link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.9.4/dist/leaflet.css\" /&gt;`\nspecies_data = d3.csv(\"data/species_plots.csv\")\npolygons_geojson = d3.json(\"data/polygons.geojson\")\n// Get unique species for dropdown\nunique_species = [...new Set(species_data.map(d =&gt; d.species))].sort()"
+  },
+  {
+    "objectID": "index.html#species-dashboard",
+    "href": "index.html#species-dashboard",
+    "title": "OJS Dashboard",
+    "section": "Species Dashboard",
+    "text": "Species Dashboard\n\n\n\nSelect Species\n\nviewof selected_species = Inputs.select(\n  unique_species,\n  {\n    label: \"Species:\",\n    value: unique_species[0]\n  }\n)\n\n\n\n\n\n\n\n\nFiltered Polygons\n\nfiltered_data = species_data.filter(d =&gt; d.species === selected_species)\nfiltered_polygon_ids = filtered_data.map(d =&gt; d.polygons_id)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nShowing \\({filtered_polygon_ids.length}** polygon(s) for **\\){selected_species}\n\n\n\nMap - Click on a polygon to view plot\n\n// Create map container\nmap_container = html`&lt;div id=\"map\" style=\"height: 500px; width: 100%;\"&gt;&lt;/div&gt;`\n\n\n\n\n\n\n\n// Initialize map - map_container is the div element itself\n// Create map centered on Belgium (where coordinates are)\nmap = {\n  const m = L.map(map_container).setView([51.15, 4.15], 11);\n  \n  // Add base tile layer\n  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\n    attribution: '© OpenStreetMap contributors'\n  }).addTo(m);\n  \n  return m;\n}\n\n\n\n\n\n\n\n// Store layer group for polygons\npolygonLayer = L.layerGroup().addTo(map)\n\n\n\n\n\n\n\n// Function to get plot data for a specific species/polygon combination\nfunction getPlotData(polygon_id, species_name) {\n  const record = species_data.find(d =&gt; \n    d.polygons_id === polygon_id && d.species === species_name\n  );\n  if (record) {\n    return JSON.parse(record.plot);\n  }\n  return null;\n}\n\n\n\n\n\n\n\n// Function to create popup content with plot\nfunction createPopupContent(polygon_id, species_name) {\n  const plotData = getPlotData(polygon_id, species_name);\n  if (!plotData) return `&lt;b&gt;No data available&lt;/b&gt;`;\n  \n  const popupDiv = document.createElement('div');\n  popupDiv.style.minWidth = '300px';\n  \n  // Add title\n  const title = document.createElement('h4');\n  title.textContent = `${species_name} - ${polygon_id}`;\n  title.style.marginTop = '0';\n  popupDiv.appendChild(title);\n  \n  // Create plot using Observable Plot\n  const plotDiv = document.createElement('div');\n  const plot = Plot.plot({\n    width: 300,\n    height: 200,\n    marginLeft: 40,\n    y: {\n      grid: true,\n      label: \"Count\"\n    },\n    x: {\n      label: \"Month\"\n    },\n    marks: [\n      Plot.barY(plotData.labels.map((label, i) =&gt; ({\n        month: label,\n        value: plotData.data[i]\n      })), {\n        x: \"month\",\n        y: \"value\",\n        fill: \"steelblue\"\n      }),\n      Plot.ruleY([0])\n    ]\n  });\n  \n  plotDiv.appendChild(plot);\n  popupDiv.appendChild(plotDiv);\n  \n  return popupDiv;\n}\n\n\n\n\n\n\n\n// Reactive cell: Update polygons when filtered_polygon_ids changes\n{\n  // Clear existing polygons\n  polygonLayer.clearLayers();\n  \n  // Add all polygons with appropriate styling\n  polygons_geojson.features.forEach(feature =&gt; {\n    const polygon_id = feature.properties.polygon_id;\n    const is_filtered = filtered_polygon_ids.includes(polygon_id);\n    \n    // Find all species for this polygon\n    const polygon_records = species_data.filter(d =&gt; d.polygons_id === polygon_id);\n    const all_species = polygon_records.map(d =&gt; d.species);\n    const species_count = all_species.length;\n    \n    // Style based on whether it's in filtered set\n    const style = {\n      fillColor: is_filtered ? '#3388ff' : '#cccccc',\n      weight: 2,\n      opacity: 1,\n      color: is_filtered ? '#0066cc' : '#999999',\n      fillOpacity: is_filtered ? 0.6 : 0.3\n    };\n    \n    const layer = L.geoJSON(feature, {\n      style: style,\n      onEachFeature: (feature, layer) =&gt; {\n        // Add tooltip showing all species in this polygon\n        const tooltip_text = all_species.length &gt; 0 \n          ? `${polygon_id}: ${all_species.join(', ')} (${all_species.length} species)`\n          : `${polygon_id}: No species data`;\n        \n        layer.bindTooltip(tooltip_text, {\n          permanent: false,\n          direction: 'center'\n        });\n        \n        // Add click handler with popup\n        if (is_filtered) {\n          layer.on('click', () =&gt; {\n            // Use the currently selected species for the popup\n            const popupContent = createPopupContent(polygon_id, selected_species);\n            L.popup()\n              .setLatLng(layer.getBounds().getCenter())\n              .setContent(popupContent)\n              .openOn(map);\n          });\n          \n          // Change cursor on hover\n          layer.on('mouseover', () =&gt; {\n            layer.setStyle({ fillOpacity: 0.8 });\n          });\n          layer.on('mouseout', () =&gt; {\n            layer.setStyle({ fillOpacity: 0.6 });\n          });\n        }\n      }\n    });\n    \n    layer.addTo(polygonLayer);\n  });\n  \n  // Fit map to filtered polygons if any\n  if (filtered_polygon_ids.length &gt; 0) {\n    const bounds = polygonLayer.getBounds();\n    if (bounds.isValid()) {\n      map.fitBounds(bounds, { padding: [50, 50] });\n    }\n  }\n}\n\n\n\n\n\n\n\n\n\nInstructions: 1. Select a species from the dropdown on the left 2. The map will highlight polygons containing that species in blue 3. Click on any highlighted polygon to view its plot in a popup"
+  },
+  {
+    "objectID": "DARK_THEME.html",
+    "href": "DARK_THEME.html",
+    "title": "Dark Theme Implementation",
+    "section": "",
+    "text": "The OJS Dashboard has been configured with a dark theme for improved visual aesthetics and reduced eye strain in low-light environments.\n\n\n\n\n\n\nTheme Name: darkly\nTheme Type: Bootstrap-based dark theme\nApplied In: Both _quarto.yml and index.qmd\n\n\n\n\nThe darkly theme provides: - Background: Dark grey/black tones - Text: Light grey/white for high contrast - Navigation: Dark navbar with light text - Accents: Blue highlights for interactive elements\n\n\n\nAdditional styling has been applied in styles.css to ensure all components work well with the dark theme:\n/* Map border - darker for dark theme */\n#map {\n  border: 1px solid #444;\n  border-radius: 4px;\n}\n\n/* Leaflet popup styling for dark theme */\n.leaflet-popup-content-wrapper {\n  background: #2b3e50;\n  color: #ffffff;\n}\n\n.leaflet-popup-tip {\n  background: #2b3e50;\n}\n\n\n\n\nNavigation Bar: Dark navbar with light text\nMain Content: Dark background with light text\nInteractive Map:\n\nDark borders\nPolygons display correctly on map tiles\nTooltips have dark backgrounds\n\nPopups:\n\nDark background (#2b3e50)\nWhite text for readability\nObservable Plot charts render appropriately\n\nSpecies Dropdown: Styled to match dark theme\nFiltered Polygons Counter: Light text on dark background\n\n\n\n\n\n\nReduced Eye Strain: Especially beneficial in low-light environments\nModern Aesthetics: Contemporary look and feel\nBetter Focus: Dark backgrounds help focus attention on data visualizations\nEnergy Savings: On OLED/AMOLED displays, dark themes consume less power\n\n\n\n\nIf you prefer a different theme, Quarto supports several Bootstrap themes. To change:\n\n\n\nslate - A subtle dark theme\nsuperhero - A more vibrant dark theme\nsolar - Dark theme with unique color palette\nvapor - A dark neon theme\ncyborg - High-contrast dark theme\n\n\n\n\n\ncosmo - The original theme (clean and modern)\nflatly - Flat design\nlumen - Light and clean\nminty - Fresh green accents\n\n\n\n\n\nEdit _quarto.yml:\n\nformat:\n  html:\n    theme: your-chosen-theme\n    css: styles.css\n    toc: false\n\nEdit index.qmd frontmatter:\n\n---\ntitle: \"OJS Dashboard\"\nformat:\n  html:\n    page-layout: full\n    theme: your-chosen-theme\n---\n\nRe-render: quarto render\n\n\n\n\n\nTo further customize the dark theme, you can:\n\nModify styles.css: Add custom CSS rules\nOverride theme variables: Create a custom SCSS file\nAdjust specific components: Target specific classes in CSS\n\nExample custom color for filtered polygons:\n/* Custom highlight color for selected polygons */\n.leaflet-interactive[style*=\"fill:#3388ff\"] {\n  /* Your custom styling */\n}\n\n\n\nThe dark theme maintains good contrast ratios for accessibility: - Text contrast meets WCAG AA standards - Interactive elements are clearly visible - Color is not the only means of conveying information\n\n\n\nThe dark theme works across all modern browsers: - Chrome/Edge (Chromium) - Firefox - Safari - Opera\nNo special configuration needed for browser dark mode as the theme is explicitly set."
+  },
+  {
+    "objectID": "DARK_THEME.html#overview",
+    "href": "DARK_THEME.html#overview",
+    "title": "Dark Theme Implementation",
+    "section": "",
+    "text": "The OJS Dashboard has been configured with a dark theme for improved visual aesthetics and reduced eye strain in low-light environments."
+  },
+  {
+    "objectID": "DARK_THEME.html#theme-details",
+    "href": "DARK_THEME.html#theme-details",
+    "title": "Dark Theme Implementation",
+    "section": "",
+    "text": "Theme Name: darkly\nTheme Type: Bootstrap-based dark theme\nApplied In: Both _quarto.yml and index.qmd\n\n\n\n\nThe darkly theme provides: - Background: Dark grey/black tones - Text: Light grey/white for high contrast - Navigation: Dark navbar with light text - Accents: Blue highlights for interactive elements\n\n\n\nAdditional styling has been applied in styles.css to ensure all components work well with the dark theme:\n/* Map border - darker for dark theme */\n#map {\n  border: 1px solid #444;\n  border-radius: 4px;\n}\n\n/* Leaflet popup styling for dark theme */\n.leaflet-popup-content-wrapper {\n  background: #2b3e50;\n  color: #ffffff;\n}\n\n.leaflet-popup-tip {\n  background: #2b3e50;\n}\n\n\n\n\nNavigation Bar: Dark navbar with light text\nMain Content: Dark background with light text\nInteractive Map:\n\nDark borders\nPolygons display correctly on map tiles\nTooltips have dark backgrounds\n\nPopups:\n\nDark background (#2b3e50)\nWhite text for readability\nObservable Plot charts render appropriately\n\nSpecies Dropdown: Styled to match dark theme\nFiltered Polygons Counter: Light text on dark background"
+  },
+  {
+    "objectID": "DARK_THEME.html#benefits",
+    "href": "DARK_THEME.html#benefits",
+    "title": "Dark Theme Implementation",
+    "section": "",
+    "text": "Reduced Eye Strain: Especially beneficial in low-light environments\nModern Aesthetics: Contemporary look and feel\nBetter Focus: Dark backgrounds help focus attention on data visualizations\nEnergy Savings: On OLED/AMOLED displays, dark themes consume less power"
+  },
+  {
+    "objectID": "DARK_THEME.html#alternative-themes",
+    "href": "DARK_THEME.html#alternative-themes",
+    "title": "Dark Theme Implementation",
+    "section": "",
+    "text": "If you prefer a different theme, Quarto supports several Bootstrap themes. To change:\n\n\n\nslate - A subtle dark theme\nsuperhero - A more vibrant dark theme\nsolar - Dark theme with unique color palette\nvapor - A dark neon theme\ncyborg - High-contrast dark theme\n\n\n\n\n\ncosmo - The original theme (clean and modern)\nflatly - Flat design\nlumen - Light and clean\nminty - Fresh green accents\n\n\n\n\n\nEdit _quarto.yml:\n\nformat:\n  html:\n    theme: your-chosen-theme\n    css: styles.css\n    toc: false\n\nEdit index.qmd frontmatter:\n\n---\ntitle: \"OJS Dashboard\"\nformat:\n  html:\n    page-layout: full\n    theme: your-chosen-theme\n---\n\nRe-render: quarto render"
+  },
+  {
+    "objectID": "DARK_THEME.html#customization",
+    "href": "DARK_THEME.html#customization",
+    "title": "Dark Theme Implementation",
+    "section": "",
+    "text": "To further customize the dark theme, you can:\n\nModify styles.css: Add custom CSS rules\nOverride theme variables: Create a custom SCSS file\nAdjust specific components: Target specific classes in CSS\n\nExample custom color for filtered polygons:\n/* Custom highlight color for selected polygons */\n.leaflet-interactive[style*=\"fill:#3388ff\"] {\n  /* Your custom styling */\n}"
+  },
+  {
+    "objectID": "DARK_THEME.html#accessibility",
+    "href": "DARK_THEME.html#accessibility",
+    "title": "Dark Theme Implementation",
+    "section": "",
+    "text": "The dark theme maintains good contrast ratios for accessibility: - Text contrast meets WCAG AA standards - Interactive elements are clearly visible - Color is not the only means of conveying information"
+  },
+  {
+    "objectID": "DARK_THEME.html#browser-compatibility",
+    "href": "DARK_THEME.html#browser-compatibility",
+    "title": "Dark Theme Implementation",
+    "section": "",
+    "text": "The dark theme works across all modern browsers: - Chrome/Edge (Chromium) - Firefox - Safari - Opera\nNo special configuration needed for browser dark mode as the theme is explicitly set."
+  },
+  {
+    "objectID": "BEFORE_AFTER.html",
+    "href": "BEFORE_AFTER.html",
+    "title": "Before vs After: OJS Cell Structure",
+    "section": "",
+    "text": "```javascript\n{\n  const map = L.map(...).setView(...);           // Initialize once\n  const polygonLayer = L.layerGroup().addTo(map); // Initialize once\n  \n  function getPlotData(polygon_id) { ... }       // Define once\n  function createPopupContent(...) { ... }       // Define once\n  \n  function updatePolygons() {                     // Define once\n    polygonLayer.clearLayers();\n    polygons_geojson.features.forEach(...);\n    // Add polygons with styling and event handlers\n  }\n  \n  filtered_polygon_ids; // Reference dependency\n  updatePolygons();     // Call once\n  \n  return map_container;\n}\nProblem: - ❌ Entire cell runs once on load - ❌ updatePolygons() is called once - ❌ When filtered_polygon_ids changes, nothing happens - ❌ Only initial species (Birch) has working click handlers - ❌ Polygon colors don’t update when species changes\n\n\n\n\n\n\n```javascript\nmap = {\n  const m = L.map(map_container).setView([51.15, 4.15], 11);\n  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\n    attribution: '© OpenStreetMap contributors'\n  }).addTo(m);\n  return m;\n}\n✅ Runs once, map is available globally\n\n\n\n```javascript\npolygonLayer = L.layerGroup().addTo(map)\n✅ Runs once (depends on map), polygonLayer is available globally\n\n\n\n```javascript\nfunction getPlotData(polygon_id) {\n  const record = species_data.find(d =&gt; d.polygons_id === polygon_id);\n  if (record) {\n    return JSON.parse(record.plot);\n  }\n  return null;\n}\n✅ Defined once, available globally\n\n\n\n```javascript\nfunction createPopupContent(polygon_id, species_name) {\n  const plotData = getPlotData(polygon_id);\n  if (!plotData) return `&lt;b&gt;No data available&lt;/b&gt;`;\n  // ... create popup with plot\n  return popupDiv;\n}\n✅ Defined once, available globally\n\n\n\n```javascript\n{\n  // Clear existing polygons\n  polygonLayer.clearLayers();\n  \n  // Add all polygons with appropriate styling\n  polygons_geojson.features.forEach(feature =&gt; {\n    const polygon_id = feature.properties.polygon_id;\n    const is_filtered = filtered_polygon_ids.includes(polygon_id);\n    \n    // Style based on whether it's in filtered set\n    const style = {\n      fillColor: is_filtered ? '#3388ff' : '#cccccc',\n      weight: 2,\n      opacity: 1,\n      color: is_filtered ? '#0066cc' : '#999999',\n      fillOpacity: is_filtered ? 0.6 : 0.3\n    };\n    \n    const layer = L.geoJSON(feature, {\n      style: style,\n      onEachFeature: (feature, layer) =&gt; {\n        layer.bindTooltip(`${polygon_id} (${species_name})`, {\n          permanent: false,\n          direction: 'center'\n        });\n        \n        // Add click handler with popup (only for filtered)\n        if (is_filtered) {\n          layer.on('click', () =&gt; {\n            const popupContent = createPopupContent(polygon_id, species_name);\n            L.popup()\n              .setLatLng(layer.getBounds().getCenter())\n              .setContent(popupContent)\n              .openOn(map);\n          });\n          \n          // Change cursor on hover\n          layer.on('mouseover', () =&gt; {\n            layer.setStyle({ fillOpacity: 0.8 });\n          });\n          layer.on('mouseout', () =&gt; {\n            layer.setStyle({ fillOpacity: 0.6 });\n          });\n        }\n      }\n    });\n    \n    layer.addTo(polygonLayer);\n  });\n  \n  // Fit map to filtered polygons\n  if (filtered_polygon_ids.length &gt; 0) {\n    const bounds = polygonLayer.getBounds();\n    if (bounds.isValid()) {\n      map.fitBounds(bounds, { padding: [50, 50] });\n    }\n  }\n}\n✅ This cell references filtered_polygon_ids, polygons_geojson, and species_data ✅ When any of these dependencies change, the cell re-executes ✅ Polygons are cleared and re-added with fresh styling and event handlers ✅ All filtered (blue) polygons get working click handlers\n\n\n\n\n\n\n\nUser selects species\n    ↓\nselected_species changes\n    ↓\nfiltered_data updates\n    ↓\nfiltered_polygon_ids updates\n    ↓\n❌ NOTHING HAPPENS (cell doesn't re-run)\n    ↓\nMap still shows Birch polygons in blue\nClick handlers only work on poly_4\n\n\n\nUser selects species\n    ↓\nselected_species changes\n    ↓\nfiltered_data updates\n    ↓\nfiltered_polygon_ids updates\n    ↓\n✅ Reactive cell detects change\n    ↓\n✅ polygonLayer.clearLayers() removes old polygons\n    ↓\n✅ forEach loop adds all polygons back\n    ↓\n✅ Filtered polygons get blue styling\n✅ Filtered polygons get click handlers\n✅ Non-filtered polygons get gray styling\n✅ Non-filtered polygons get NO click handlers\n    ↓\n✅ Map shows correct polygons in blue\n✅ Click handlers work on all blue polygons\n✅ Each polygon shows its own data\n\n\n\n\n\n\n\n\n\n\n\n\n\nAspect\nBefore\nAfter\n\n\n\n\nCell structure\nSingle monolithic cell\nMultiple focused cells\n\n\nMap initialization\nInside reactive block\nSeparate cell (runs once)\n\n\nVariable scope\nLocal (const map)\nGlobal (map =)\n\n\nReactivity\nBroken (reference but no re-run)\nWorking (cell re-executes)\n\n\nClick handlers\nOnly on initial species\nOn all filtered polygons\n\n\nColor updates\nNever update\nUpdate on every species change\n\n\nCode organization\nHard to debug\nClear and modular\n\n\n\n\n\n\n\nThe Fix: By separating concerns into multiple OJS cells and ensuring the polygon update logic is in its own reactive cell, we enable proper OJS reactivity. When filtered_polygon_ids changes, only the necessary code (polygon updates) re-executes, while the map initialization remains stable."
+  },
+  {
+    "objectID": "BEFORE_AFTER.html#before-broken---single-cell",
+    "href": "BEFORE_AFTER.html#before-broken---single-cell",
+    "title": "Before vs After: OJS Cell Structure",
+    "section": "",
+    "text": "```javascript\n{\n  const map = L.map(...).setView(...);           // Initialize once\n  const polygonLayer = L.layerGroup().addTo(map); // Initialize once\n  \n  function getPlotData(polygon_id) { ... }       // Define once\n  function createPopupContent(...) { ... }       // Define once\n  \n  function updatePolygons() {                     // Define once\n    polygonLayer.clearLayers();\n    polygons_geojson.features.forEach(...);\n    // Add polygons with styling and event handlers\n  }\n  \n  filtered_polygon_ids; // Reference dependency\n  updatePolygons();     // Call once\n  \n  return map_container;\n}\nProblem: - ❌ Entire cell runs once on load - ❌ updatePolygons() is called once - ❌ When filtered_polygon_ids changes, nothing happens - ❌ Only initial species (Birch) has working click handlers - ❌ Polygon colors don’t update when species changes"
+  },
+  {
+    "objectID": "BEFORE_AFTER.html#after-fixed---multiple-cells",
+    "href": "BEFORE_AFTER.html#after-fixed---multiple-cells",
+    "title": "Before vs After: OJS Cell Structure",
+    "section": "",
+    "text": "```javascript\nmap = {\n  const m = L.map(map_container).setView([51.15, 4.15], 11);\n  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {\n    attribution: '© OpenStreetMap contributors'\n  }).addTo(m);\n  return m;\n}\n✅ Runs once, map is available globally\n\n\n\n```javascript\npolygonLayer = L.layerGroup().addTo(map)\n✅ Runs once (depends on map), polygonLayer is available globally\n\n\n\n```javascript\nfunction getPlotData(polygon_id) {\n  const record = species_data.find(d =&gt; d.polygons_id === polygon_id);\n  if (record) {\n    return JSON.parse(record.plot);\n  }\n  return null;\n}\n✅ Defined once, available globally\n\n\n\n```javascript\nfunction createPopupContent(polygon_id, species_name) {\n  const plotData = getPlotData(polygon_id);\n  if (!plotData) return `&lt;b&gt;No data available&lt;/b&gt;`;\n  // ... create popup with plot\n  return popupDiv;\n}\n✅ Defined once, available globally\n\n\n\n```javascript\n{\n  // Clear existing polygons\n  polygonLayer.clearLayers();\n  \n  // Add all polygons with appropriate styling\n  polygons_geojson.features.forEach(feature =&gt; {\n    const polygon_id = feature.properties.polygon_id;\n    const is_filtered = filtered_polygon_ids.includes(polygon_id);\n    \n    // Style based on whether it's in filtered set\n    const style = {\n      fillColor: is_filtered ? '#3388ff' : '#cccccc',\n      weight: 2,\n      opacity: 1,\n      color: is_filtered ? '#0066cc' : '#999999',\n      fillOpacity: is_filtered ? 0.6 : 0.3\n    };\n    \n    const layer = L.geoJSON(feature, {\n      style: style,\n      onEachFeature: (feature, layer) =&gt; {\n        layer.bindTooltip(`${polygon_id} (${species_name})`, {\n          permanent: false,\n          direction: 'center'\n        });\n        \n        // Add click handler with popup (only for filtered)\n        if (is_filtered) {\n          layer.on('click', () =&gt; {\n            const popupContent = createPopupContent(polygon_id, species_name);\n            L.popup()\n              .setLatLng(layer.getBounds().getCenter())\n              .setContent(popupContent)\n              .openOn(map);\n          });\n          \n          // Change cursor on hover\n          layer.on('mouseover', () =&gt; {\n            layer.setStyle({ fillOpacity: 0.8 });\n          });\n          layer.on('mouseout', () =&gt; {\n            layer.setStyle({ fillOpacity: 0.6 });\n          });\n        }\n      }\n    });\n    \n    layer.addTo(polygonLayer);\n  });\n  \n  // Fit map to filtered polygons\n  if (filtered_polygon_ids.length &gt; 0) {\n    const bounds = polygonLayer.getBounds();\n    if (bounds.isValid()) {\n      map.fitBounds(bounds, { padding: [50, 50] });\n    }\n  }\n}\n✅ This cell references filtered_polygon_ids, polygons_geojson, and species_data ✅ When any of these dependencies change, the cell re-executes ✅ Polygons are cleared and re-added with fresh styling and event handlers ✅ All filtered (blue) polygons get working click handlers"
+  },
+  {
+    "objectID": "BEFORE_AFTER.html#data-flow-comparison",
+    "href": "BEFORE_AFTER.html#data-flow-comparison",
+    "title": "Before vs After: OJS Cell Structure",
+    "section": "",
+    "text": "User selects species\n    ↓\nselected_species changes\n    ↓\nfiltered_data updates\n    ↓\nfiltered_polygon_ids updates\n    ↓\n❌ NOTHING HAPPENS (cell doesn't re-run)\n    ↓\nMap still shows Birch polygons in blue\nClick handlers only work on poly_4\n\n\n\nUser selects species\n    ↓\nselected_species changes\n    ↓\nfiltered_data updates\n    ↓\nfiltered_polygon_ids updates\n    ↓\n✅ Reactive cell detects change\n    ↓\n✅ polygonLayer.clearLayers() removes old polygons\n    ↓\n✅ forEach loop adds all polygons back\n    ↓\n✅ Filtered polygons get blue styling\n✅ Filtered polygons get click handlers\n✅ Non-filtered polygons get gray styling\n✅ Non-filtered polygons get NO click handlers\n    ↓\n✅ Map shows correct polygons in blue\n✅ Click handlers work on all blue polygons\n✅ Each polygon shows its own data"
+  },
+  {
+    "objectID": "BEFORE_AFTER.html#key-differences",
+    "href": "BEFORE_AFTER.html#key-differences",
+    "title": "Before vs After: OJS Cell Structure",
+    "section": "",
+    "text": "Aspect\nBefore\nAfter\n\n\n\n\nCell structure\nSingle monolithic cell\nMultiple focused cells\n\n\nMap initialization\nInside reactive block\nSeparate cell (runs once)\n\n\nVariable scope\nLocal (const map)\nGlobal (map =)\n\n\nReactivity\nBroken (reference but no re-run)\nWorking (cell re-executes)\n\n\nClick handlers\nOnly on initial species\nOn all filtered polygons\n\n\nColor updates\nNever update\nUpdate on every species change\n\n\nCode organization\nHard to debug\nClear and modular"
+  },
+  {
+    "objectID": "BEFORE_AFTER.html#summary",
+    "href": "BEFORE_AFTER.html#summary",
+    "title": "Before vs After: OJS Cell Structure",
+    "section": "",
+    "text": "The Fix: By separating concerns into multiple OJS cells and ensuring the polygon update logic is in its own reactive cell, we enable proper OJS reactivity. When filtered_polygon_ids changes, only the necessary code (polygon updates) re-executes, while the map initialization remains stable."
+  },
+  {
+    "objectID": "FIX_DETAILS.html",
+    "href": "FIX_DETAILS.html",
+    "title": "Map Container Fix - Technical Details",
+    "section": "",
+    "text": "When running quarto preview index.qmd, the dashboard displayed the error:\nOJS Error\nError: Map container not found.\n\n\n\nThe error occurred in the map initialization code block (originally lines 68-73):\n{\n  // Initialize map\n  const container = map_container.querySelector('#map');\n  \n  // Create map centered on Belgium (where coordinates are)\n  const map = L.map(container).setView([51.15, 4.15], 11);\n\n\n\nIn OJS, map_container is created using:\nmap_container = html`&lt;div id=\"map\" style=\"height: 500px; width: 100%;\"&gt;&lt;/div&gt;`\nThis creates a DOM element directly - map_container IS the div element\nThe code then tried to use querySelector('#map') on the element itself:\nconst container = map_container.querySelector('#map');\nThis is incorrect because:\n\nquerySelector searches within an element for descendants\nmap_container IS the #map div, not a parent containing it\nThe query returned null because there’s no child element with id=“map”\nLeaflet received null and threw “Map container not found”\n\n\n\n\n\n\nRemove the querySelector and pass map_container directly to Leaflet:\n{\n  // Initialize map - map_container is the div element itself\n  // Create map centered on Belgium (where coordinates are)\n  const map = L.map(map_container).setView([51.15, 4.15], 11);\n\n\n\nmap_container is already the DOM element Leaflet needs\nL.map() accepts either:\n\nA string ID selector (e.g., 'map')\nA DOM element directly (e.g., map_container)\n\nPassing the element directly is actually more efficient\n\n\n\n\n\nThe fix has been applied and tested:\n\n✅ The Quarto document renders successfully\n✅ The generated HTML contains the corrected code\n✅ No querySelector is used\n✅ Comments clarify that map_container is the div element itself\n\n\n\n\nTo test the fix locally:\n# Preview the dashboard\nquarto preview index.qmd\n\n# Or build and serve\nquarto render\ncd docs\npython3 -m http.server 8080\n# Open http://localhost:8080/index.html\nThe map should now load without errors, showing: - A map centered on Belgium (coordinates 51.15, 4.15) - OpenStreetMap tiles - Polygons displayed based on selected species - Interactive click handlers for popups\n\n\n\n\n\nconst container = map_container.querySelector('#map');\nconst map = L.map(container).setView([51.15, 4.15], 11);\n\n\n\nconst map = L.map(map_container).setView([51.15, 4.15], 11);\nThe fix is minimal and surgical - only removing the problematic querySelector line."
+  },
+  {
+    "objectID": "FIX_DETAILS.html#problem",
+    "href": "FIX_DETAILS.html#problem",
+    "title": "Map Container Fix - Technical Details",
+    "section": "",
+    "text": "When running quarto preview index.qmd, the dashboard displayed the error:\nOJS Error\nError: Map container not found."
+  },
+  {
+    "objectID": "FIX_DETAILS.html#root-cause",
+    "href": "FIX_DETAILS.html#root-cause",
+    "title": "Map Container Fix - Technical Details",
+    "section": "",
+    "text": "The error occurred in the map initialization code block (originally lines 68-73):\n{\n  // Initialize map\n  const container = map_container.querySelector('#map');\n  \n  // Create map centered on Belgium (where coordinates are)\n  const map = L.map(container).setView([51.15, 4.15], 11);\n\n\n\nIn OJS, map_container is created using:\nmap_container = html`&lt;div id=\"map\" style=\"height: 500px; width: 100%;\"&gt;&lt;/div&gt;`\nThis creates a DOM element directly - map_container IS the div element\nThe code then tried to use querySelector('#map') on the element itself:\nconst container = map_container.querySelector('#map');\nThis is incorrect because:\n\nquerySelector searches within an element for descendants\nmap_container IS the #map div, not a parent containing it\nThe query returned null because there’s no child element with id=“map”\nLeaflet received null and threw “Map container not found”"
+  },
+  {
+    "objectID": "FIX_DETAILS.html#solution",
+    "href": "FIX_DETAILS.html#solution",
+    "title": "Map Container Fix - Technical Details",
+    "section": "",
+    "text": "Remove the querySelector and pass map_container directly to Leaflet:\n{\n  // Initialize map - map_container is the div element itself\n  // Create map centered on Belgium (where coordinates are)\n  const map = L.map(map_container).setView([51.15, 4.15], 11);\n\n\n\nmap_container is already the DOM element Leaflet needs\nL.map() accepts either:\n\nA string ID selector (e.g., 'map')\nA DOM element directly (e.g., map_container)\n\nPassing the element directly is actually more efficient"
+  },
+  {
+    "objectID": "FIX_DETAILS.html#verification",
+    "href": "FIX_DETAILS.html#verification",
+    "title": "Map Container Fix - Technical Details",
+    "section": "",
+    "text": "The fix has been applied and tested:\n\n✅ The Quarto document renders successfully\n✅ The generated HTML contains the corrected code\n✅ No querySelector is used\n✅ Comments clarify that map_container is the div element itself"
+  },
+  {
+    "objectID": "FIX_DETAILS.html#testing-locally",
+    "href": "FIX_DETAILS.html#testing-locally",
+    "title": "Map Container Fix - Technical Details",
+    "section": "",
+    "text": "To test the fix locally:\n# Preview the dashboard\nquarto preview index.qmd\n\n# Or build and serve\nquarto render\ncd docs\npython3 -m http.server 8080\n# Open http://localhost:8080/index.html\nThe map should now load without errors, showing: - A map centered on Belgium (coordinates 51.15, 4.15) - OpenStreetMap tiles - Polygons displayed based on selected species - Interactive click handlers for popups"
+  },
+  {
+    "objectID": "FIX_DETAILS.html#code-comparison",
+    "href": "FIX_DETAILS.html#code-comparison",
+    "title": "Map Container Fix - Technical Details",
+    "section": "",
+    "text": "const container = map_container.querySelector('#map');\nconst map = L.map(container).setView([51.15, 4.15], 11);\n\n\n\nconst map = L.map(map_container).setView([51.15, 4.15], 11);\nThe fix is minimal and surgical - only removing the problematic querySelector line."
+  },
+  {
+    "objectID": "LOGIC_VERIFICATION.html",
+    "href": "LOGIC_VERIFICATION.html",
+    "title": "Logic Verification: Multiple Species Per Polygon",
+    "section": "",
+    "text": "This document verifies that the filtering and click handler logic works correctly with multiple species per polygon.\n\n\n\n\n\n// User selects a species, e.g., \"Oak\"\nselected_species = \"Oak\"\n\n\n\n// Filter to only records with the selected species\nfiltered_data = species_data.filter(d =&gt; d.species === selected_species)\n\n// Extract polygon IDs that contain the selected species\nfiltered_polygon_ids = filtered_data.map(d =&gt; d.polygons_id)\nExample with “Oak” selected: - species_data has: poly_1/Oak, poly_1/Pine, poly_2/Pine, poly_2/Birch, poly_3/Oak, poly_3/Pine, poly_3/Birch, poly_4/Birch, poly_4/Oak, poly_5/Pine - filtered_data = [poly_1/Oak, poly_3/Oak, poly_4/Oak] - filtered_polygon_ids = [“poly_1”, “poly_3”, “poly_4”]\n\n\n\nconst is_filtered = filtered_polygon_ids.includes(polygon_id);\nResult: - poly_1: is_filtered = true (contains Oak) - poly_2: is_filtered = false (no Oak) - poly_3: is_filtered = true (contains Oak) - poly_4: is_filtered = true (contains Oak) - poly_5: is_filtered = false (no Oak)\n\n\n\nif (is_filtered) {\n  layer.on('click', () =&gt; {\n    const popupContent = createPopupContent(polygon_id, selected_species);\n    // Show popup\n  });\n}\nResult: Click handlers only added to poly_1, poly_3, and poly_4\n\n\n\nfunction getPlotData(polygon_id, species_name) {\n  const record = species_data.find(d =&gt; \n    d.polygons_id === polygon_id && d.species === species_name\n  );\n  // ...\n}\nWhen clicking poly_3 with “Oak” selected: - polygon_id = “poly_3” - species_name = “Oak” - Finds record: poly_3/Oak - Returns Oak’s plot data for poly_3\n\n\n\n\n\n\nSteps: 1. Select “Oak” 2. Click on poly_3 (blue, clickable)\nExpected: - poly_3 is in filtered_polygon_ids (contains Oak) - is_filtered = true - Click handler exists - getPlotData(“poly_3”, “Oak”) returns Oak’s plot data - Popup shows Oak’s plot for poly_3\nResult: ✅ Correct\n\n\n\nSteps: 1. Select “Oak” 2. Try to click on poly_2 (gray, should not be clickable)\nExpected: - poly_2 is NOT in filtered_polygon_ids (no Oak) - is_filtered = false - No click handler attached - Nothing happens when clicked\nResult: ✅ Correct\n\n\n\nSteps: 1. Select “Oak” 2. Hover over poly_3 3. Click on poly_3 4. Change selection to “Pine” 5. Click on poly_3 again\nExpected: - Hover shows: “poly_3: Oak, Pine, Birch (3 species)” - First click shows Oak’s plot for poly_3 - After changing to Pine, poly_3 remains blue (contains Pine) - Second click shows Pine’s plot for poly_3 (different data)\nResult: ✅ Correct\n\n\n\nSteps: 1. Select “Pine” 2. Click on poly_5\nExpected: - poly_5 is in filtered_polygon_ids (contains Pine) - Hover shows: “poly_5: Pine (1 species)” - Click shows Pine’s plot for poly_5\nResult: ✅ Correct\n\n\n\n\n\n\nIf somehow getPlotData() returns null (data inconsistency):\nif (!plotData) return `&lt;b&gt;No data available&lt;/b&gt;`;\nProtection: This should never happen in normal operation because: 1. is_filtered ensures polygon contains selected species 2. filtered_polygon_ids only includes polygons with the selected species 3. getPlotData uses both polygon_id and selected_species\nHowever, the fallback is in place for data integrity issues.\n\n\n\n\nThe filtering logic is correct and safe: - Only polygons containing the selected species are clickable - Click handlers use the selected species, ensuring correct plot retrieval - Multiple species per polygon work correctly - Users cannot click on polygons that don’t contain the selected species - Each click shows the unique plot for that species/polygon combination"
+  },
+  {
+    "objectID": "LOGIC_VERIFICATION.html#filtering-logic-flow",
+    "href": "LOGIC_VERIFICATION.html#filtering-logic-flow",
+    "title": "Logic Verification: Multiple Species Per Polygon",
+    "section": "",
+    "text": "This document verifies that the filtering and click handler logic works correctly with multiple species per polygon."
+  },
+  {
+    "objectID": "LOGIC_VERIFICATION.html#data-flow",
+    "href": "LOGIC_VERIFICATION.html#data-flow",
+    "title": "Logic Verification: Multiple Species Per Polygon",
+    "section": "",
+    "text": "// User selects a species, e.g., \"Oak\"\nselected_species = \"Oak\"\n\n\n\n// Filter to only records with the selected species\nfiltered_data = species_data.filter(d =&gt; d.species === selected_species)\n\n// Extract polygon IDs that contain the selected species\nfiltered_polygon_ids = filtered_data.map(d =&gt; d.polygons_id)\nExample with “Oak” selected: - species_data has: poly_1/Oak, poly_1/Pine, poly_2/Pine, poly_2/Birch, poly_3/Oak, poly_3/Pine, poly_3/Birch, poly_4/Birch, poly_4/Oak, poly_5/Pine - filtered_data = [poly_1/Oak, poly_3/Oak, poly_4/Oak] - filtered_polygon_ids = [“poly_1”, “poly_3”, “poly_4”]\n\n\n\nconst is_filtered = filtered_polygon_ids.includes(polygon_id);\nResult: - poly_1: is_filtered = true (contains Oak) - poly_2: is_filtered = false (no Oak) - poly_3: is_filtered = true (contains Oak) - poly_4: is_filtered = true (contains Oak) - poly_5: is_filtered = false (no Oak)\n\n\n\nif (is_filtered) {\n  layer.on('click', () =&gt; {\n    const popupContent = createPopupContent(polygon_id, selected_species);\n    // Show popup\n  });\n}\nResult: Click handlers only added to poly_1, poly_3, and poly_4\n\n\n\nfunction getPlotData(polygon_id, species_name) {\n  const record = species_data.find(d =&gt; \n    d.polygons_id === polygon_id && d.species === species_name\n  );\n  // ...\n}\nWhen clicking poly_3 with “Oak” selected: - polygon_id = “poly_3” - species_name = “Oak” - Finds record: poly_3/Oak - Returns Oak’s plot data for poly_3"
+  },
+  {
+    "objectID": "LOGIC_VERIFICATION.html#verification-scenarios",
+    "href": "LOGIC_VERIFICATION.html#verification-scenarios",
+    "title": "Logic Verification: Multiple Species Per Polygon",
+    "section": "",
+    "text": "Steps: 1. Select “Oak” 2. Click on poly_3 (blue, clickable)\nExpected: - poly_3 is in filtered_polygon_ids (contains Oak) - is_filtered = true - Click handler exists - getPlotData(“poly_3”, “Oak”) returns Oak’s plot data - Popup shows Oak’s plot for poly_3\nResult: ✅ Correct\n\n\n\nSteps: 1. Select “Oak” 2. Try to click on poly_2 (gray, should not be clickable)\nExpected: - poly_2 is NOT in filtered_polygon_ids (no Oak) - is_filtered = false - No click handler attached - Nothing happens when clicked\nResult: ✅ Correct\n\n\n\nSteps: 1. Select “Oak” 2. Hover over poly_3 3. Click on poly_3 4. Change selection to “Pine” 5. Click on poly_3 again\nExpected: - Hover shows: “poly_3: Oak, Pine, Birch (3 species)” - First click shows Oak’s plot for poly_3 - After changing to Pine, poly_3 remains blue (contains Pine) - Second click shows Pine’s plot for poly_3 (different data)\nResult: ✅ Correct\n\n\n\nSteps: 1. Select “Pine” 2. Click on poly_5\nExpected: - poly_5 is in filtered_polygon_ids (contains Pine) - Hover shows: “poly_5: Pine (1 species)” - Click shows Pine’s plot for poly_5\nResult: ✅ Correct"
+  },
+  {
+    "objectID": "LOGIC_VERIFICATION.html#error-handling",
+    "href": "LOGIC_VERIFICATION.html#error-handling",
+    "title": "Logic Verification: Multiple Species Per Polygon",
+    "section": "",
+    "text": "If somehow getPlotData() returns null (data inconsistency):\nif (!plotData) return `&lt;b&gt;No data available&lt;/b&gt;`;\nProtection: This should never happen in normal operation because: 1. is_filtered ensures polygon contains selected species 2. filtered_polygon_ids only includes polygons with the selected species 3. getPlotData uses both polygon_id and selected_species\nHowever, the fallback is in place for data integrity issues."
+  },
+  {
+    "objectID": "LOGIC_VERIFICATION.html#conclusion",
+    "href": "LOGIC_VERIFICATION.html#conclusion",
+    "title": "Logic Verification: Multiple Species Per Polygon",
+    "section": "",
+    "text": "The filtering logic is correct and safe: - Only polygons containing the selected species are clickable - Click handlers use the selected species, ensuring correct plot retrieval - Multiple species per polygon work correctly - Users cannot click on polygons that don’t contain the selected species - Each click shows the unique plot for that species/polygon combination"
+  },
+  {
+    "objectID": "QUARTO_EXTENSION_FIX.html",
+    "href": "QUARTO_EXTENSION_FIX.html",
+    "title": "Fix for Quarto Extension Error",
+    "section": "",
+    "text": "When running quarto render or quarto preview, the build would fail with:\nERROR: You must use the .qmd extension for documents with executable code.\n\nStack trace:\n    at Object.execute (file:///C:/Program Files/Positron/resources/app/quarto/bin/quarto.js:41073:23)\n    ...\n\n\n\nThe documentation files BEFORE_AFTER.md and REACTIVITY_FIX.md contained code blocks marked with the pattern: three backticks followed by {ojs}.\nThis syntax tells Quarto that the code block contains executable OJS code. When Quarto encounters executable code blocks in a file, it requires the file to have a .qmd (Quarto Markdown) extension, not a plain .md extension.\nHowever, these documentation files were not meant to execute code - they were showing example code snippets to explain how the dashboard works. The code blocks were inside outer code fences to display them as literal text.\nDespite being nested within outer fences, Quarto was still detecting the inner markers with {ojs} as executable code directives.\n\n\n\nChanged all code block markers from {ojs} to javascript in the documentation files. This tells Quarto to: 1. Treat the code as non-executable JavaScript for syntax highlighting 2. Not require the .qmd extension 3. Still display the code properly with syntax highlighting\n\n\n\nBEFORE_AFTER.md: Changed 6 instances from {ojs} to javascript\nREACTIVITY_FIX.md: Changed 6 instances from {ojs} to javascript\n\n\n\n\n\nAfter the fix:\n$ quarto render\n[1/6] index.qmd\n[2/6] VISUAL_GUIDE.md\n[3/6] TESTING_GUIDE.md\n[4/6] FIX_DETAILS.md\n[5/6] REACTIVITY_FIX.md\n[6/6] BEFORE_AFTER.md\n\nOutput created: docs/index.html\n✅ All files render successfully without errors ✅ The main dashboard (index.qmd) still works correctly ✅ Documentation files are properly formatted with syntax highlighting ✅ No “must use .qmd extension” errors\n\n\n\n\n.qmd files are for executable Quarto documents (with R, Python, OJS, etc. code)\n.md files are for plain Markdown documentation\nCode blocks with {language} syntax (like {ojs}, {r}, {python}) indicate executable code\nCode blocks with just the language name (like javascript, python, r) are for display only\nSince our documentation files only needed to show the code (not execute it), changing from {ojs} to javascript was the correct fix\n\n\n\n\n\nRename files to .qmd: Would work but unnecessary - these files don’t need to execute code\nEscape the code blocks differently: More complex and less readable\nUse verbatim blocks: Would lose syntax highlighting\n\nThe chosen solution maintains readability while fixing the build error."
+  },
+  {
+    "objectID": "QUARTO_EXTENSION_FIX.html#problem",
+    "href": "QUARTO_EXTENSION_FIX.html#problem",
+    "title": "Fix for Quarto Extension Error",
+    "section": "",
+    "text": "When running quarto render or quarto preview, the build would fail with:\nERROR: You must use the .qmd extension for documents with executable code.\n\nStack trace:\n    at Object.execute (file:///C:/Program Files/Positron/resources/app/quarto/bin/quarto.js:41073:23)\n    ..."
+  },
+  {
+    "objectID": "QUARTO_EXTENSION_FIX.html#root-cause",
+    "href": "QUARTO_EXTENSION_FIX.html#root-cause",
+    "title": "Fix for Quarto Extension Error",
+    "section": "",
+    "text": "The documentation files BEFORE_AFTER.md and REACTIVITY_FIX.md contained code blocks marked with the pattern: three backticks followed by {ojs}.\nThis syntax tells Quarto that the code block contains executable OJS code. When Quarto encounters executable code blocks in a file, it requires the file to have a .qmd (Quarto Markdown) extension, not a plain .md extension.\nHowever, these documentation files were not meant to execute code - they were showing example code snippets to explain how the dashboard works. The code blocks were inside outer code fences to display them as literal text.\nDespite being nested within outer fences, Quarto was still detecting the inner markers with {ojs} as executable code directives."
+  },
+  {
+    "objectID": "QUARTO_EXTENSION_FIX.html#solution",
+    "href": "QUARTO_EXTENSION_FIX.html#solution",
+    "title": "Fix for Quarto Extension Error",
+    "section": "",
+    "text": "Changed all code block markers from {ojs} to javascript in the documentation files. This tells Quarto to: 1. Treat the code as non-executable JavaScript for syntax highlighting 2. Not require the .qmd extension 3. Still display the code properly with syntax highlighting\n\n\n\nBEFORE_AFTER.md: Changed 6 instances from {ojs} to javascript\nREACTIVITY_FIX.md: Changed 6 instances from {ojs} to javascript"
+  },
+  {
+    "objectID": "QUARTO_EXTENSION_FIX.html#verification",
+    "href": "QUARTO_EXTENSION_FIX.html#verification",
+    "title": "Fix for Quarto Extension Error",
+    "section": "",
+    "text": "After the fix:\n$ quarto render\n[1/6] index.qmd\n[2/6] VISUAL_GUIDE.md\n[3/6] TESTING_GUIDE.md\n[4/6] FIX_DETAILS.md\n[5/6] REACTIVITY_FIX.md\n[6/6] BEFORE_AFTER.md\n\nOutput created: docs/index.html\n✅ All files render successfully without errors ✅ The main dashboard (index.qmd) still works correctly ✅ Documentation files are properly formatted with syntax highlighting ✅ No “must use .qmd extension” errors"
+  },
+  {
+    "objectID": "QUARTO_EXTENSION_FIX.html#why-this-works",
+    "href": "QUARTO_EXTENSION_FIX.html#why-this-works",
+    "title": "Fix for Quarto Extension Error",
+    "section": "",
+    "text": ".qmd files are for executable Quarto documents (with R, Python, OJS, etc. code)\n.md files are for plain Markdown documentation\nCode blocks with {language} syntax (like {ojs}, {r}, {python}) indicate executable code\nCode blocks with just the language name (like javascript, python, r) are for display only\nSince our documentation files only needed to show the code (not execute it), changing from {ojs} to javascript was the correct fix"
+  },
+  {
+    "objectID": "QUARTO_EXTENSION_FIX.html#alternative-solutions-not-used",
+    "href": "QUARTO_EXTENSION_FIX.html#alternative-solutions-not-used",
+    "title": "Fix for Quarto Extension Error",
+    "section": "",
+    "text": "Rename files to .qmd: Would work but unnecessary - these files don’t need to execute code\nEscape the code blocks differently: More complex and less readable\nUse verbatim blocks: Would lose syntax highlighting\n\nThe chosen solution maintains readability while fixing the build error."
+  },
+  {
+    "objectID": "TESTING_GUIDE.html",
+    "href": "TESTING_GUIDE.html",
+    "title": "Testing the Reactivity Fix",
+    "section": "",
+    "text": "To verify the fix works correctly, follow these steps:\n\n\ncd /home/runner/work/ojs_dashboard/ojs_dashboard\nquarto preview index.qmd\n\n\n\nWhen the dashboard loads: - Expected: Species dropdown should show “Birch” selected - Expected: poly_4 should be blue - Expected: All other polygons (poly_1, poly_2, poly_3, poly_5) should be gray - Action: Click on poly_4 (blue polygon) - Expected: Popup appears showing “Birch - poly_4” with a bar chart - Action: Hover over gray polygons - Expected: Tooltips appear showing polygon ID and species name\n\n\n\n\nAction: Select “Oak” from dropdown\nExpected: poly_1 and poly_3 turn blue\nExpected: poly_4 (Birch) turns gray\nExpected: poly_2 and poly_5 (Pine) remain gray\nAction: Click on poly_1 (blue polygon)\nExpected: Popup shows “Oak - poly_1” with bar chart data [12, 19, 3, 5, 2, 3]\nAction: Click on poly_3 (blue polygon)\nExpected: Popup shows “Oak - poly_3” with bar chart data [15, 21, 7, 9, 4, 6]\nAction: Try clicking on gray polygon (e.g., poly_4)\nExpected: Nothing happens (no popup)\n\n\n\n\n\nAction: Select “Pine” from dropdown\nExpected: poly_2 and poly_5 turn blue\nExpected: All Oak and Birch polygons turn gray\nAction: Click on poly_2 (blue polygon)\nExpected: Popup shows “Pine - poly_2” with bar chart data [7, 11, 5, 8, 3, 7]\nAction: Click on poly_5 (blue polygon)\nExpected: Popup shows “Pine - poly_5” with bar chart data [6, 10, 4, 6, 2, 5]\n\n\n\n\n\nAction: Quickly switch between species: Oak → Pine → Birch → Oak\nExpected: Map updates smoothly each time\nExpected: Correct polygons turn blue for each species\nExpected: Click handlers work on the newly blue polygons\nExpected: No console errors\n\n\n\n\n\n✅ Dashboard renders without errors (quarto render index.qmd) ✅ Generated HTML contains separate OJS cells ✅ Map initialization cell is separate from polygon update cell ✅ Reactive cell references filtered_polygon_ids ✅ Helper functions are defined in separate cells ✅ No syntax errors in JavaScript code\n\n\n\nFor verification, here’s the species-polygon mapping:\n\n\n\nPolygon ID\nSpecies\nData Points\n\n\n\n\npoly_1\nOak\n[12, 19, 3, 5, 2, 3]\n\n\npoly_2\nPine\n[7, 11, 5, 8, 3, 7]\n\n\npoly_3\nOak\n[15, 21, 7, 9, 4, 6]\n\n\npoly_4\nBirch\n[9, 14, 6, 7, 5, 8]\n\n\npoly_5\nPine\n[6, 10, 4, 6, 2, 5]\n\n\n\n\n\n\n\nBirch: 1 polygon (poly_4)\nOak: 2 polygons (poly_1, poly_3)\nPine: 2 polygons (poly_2, poly_5)"
+  },
+  {
+    "objectID": "TESTING_GUIDE.html#manual-testing-steps",
+    "href": "TESTING_GUIDE.html#manual-testing-steps",
+    "title": "Testing the Reactivity Fix",
+    "section": "",
+    "text": "To verify the fix works correctly, follow these steps:\n\n\ncd /home/runner/work/ojs_dashboard/ojs_dashboard\nquarto preview index.qmd\n\n\n\nWhen the dashboard loads: - Expected: Species dropdown should show “Birch” selected - Expected: poly_4 should be blue - Expected: All other polygons (poly_1, poly_2, poly_3, poly_5) should be gray - Action: Click on poly_4 (blue polygon) - Expected: Popup appears showing “Birch - poly_4” with a bar chart - Action: Hover over gray polygons - Expected: Tooltips appear showing polygon ID and species name\n\n\n\n\nAction: Select “Oak” from dropdown\nExpected: poly_1 and poly_3 turn blue\nExpected: poly_4 (Birch) turns gray\nExpected: poly_2 and poly_5 (Pine) remain gray\nAction: Click on poly_1 (blue polygon)\nExpected: Popup shows “Oak - poly_1” with bar chart data [12, 19, 3, 5, 2, 3]\nAction: Click on poly_3 (blue polygon)\nExpected: Popup shows “Oak - poly_3” with bar chart data [15, 21, 7, 9, 4, 6]\nAction: Try clicking on gray polygon (e.g., poly_4)\nExpected: Nothing happens (no popup)\n\n\n\n\n\nAction: Select “Pine” from dropdown\nExpected: poly_2 and poly_5 turn blue\nExpected: All Oak and Birch polygons turn gray\nAction: Click on poly_2 (blue polygon)\nExpected: Popup shows “Pine - poly_2” with bar chart data [7, 11, 5, 8, 3, 7]\nAction: Click on poly_5 (blue polygon)\nExpected: Popup shows “Pine - poly_5” with bar chart data [6, 10, 4, 6, 2, 5]\n\n\n\n\n\nAction: Quickly switch between species: Oak → Pine → Birch → Oak\nExpected: Map updates smoothly each time\nExpected: Correct polygons turn blue for each species\nExpected: Click handlers work on the newly blue polygons\nExpected: No console errors"
+  },
+  {
+    "objectID": "TESTING_GUIDE.html#automated-verification-checklist",
+    "href": "TESTING_GUIDE.html#automated-verification-checklist",
+    "title": "Testing the Reactivity Fix",
+    "section": "",
+    "text": "✅ Dashboard renders without errors (quarto render index.qmd) ✅ Generated HTML contains separate OJS cells ✅ Map initialization cell is separate from polygon update cell ✅ Reactive cell references filtered_polygon_ids ✅ Helper functions are defined in separate cells ✅ No syntax errors in JavaScript code"
+  },
+  {
+    "objectID": "TESTING_GUIDE.html#data-reference",
+    "href": "TESTING_GUIDE.html#data-reference",
+    "title": "Testing the Reactivity Fix",
+    "section": "",
+    "text": "For verification, here’s the species-polygon mapping:\n\n\n\nPolygon ID\nSpecies\nData Points\n\n\n\n\npoly_1\nOak\n[12, 19, 3, 5, 2, 3]\n\n\npoly_2\nPine\n[7, 11, 5, 8, 3, 7]\n\n\npoly_3\nOak\n[15, 21, 7, 9, 4, 6]\n\n\npoly_4\nBirch\n[9, 14, 6, 7, 5, 8]\n\n\npoly_5\nPine\n[6, 10, 4, 6, 2, 5]"
+  },
+  {
+    "objectID": "TESTING_GUIDE.html#expected-species-counts",
+    "href": "TESTING_GUIDE.html#expected-species-counts",
+    "title": "Testing the Reactivity Fix",
+    "section": "",
+    "text": "Birch: 1 polygon (poly_4)\nOak: 2 polygons (poly_1, poly_3)\nPine: 2 polygons (poly_2, poly_5)"
+  }
+]

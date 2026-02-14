@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>OJS Dashboard</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-1688d9e1630bd0bcb1ec498477fd8fb7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">OJS Dashboard</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content column-page" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">OJS Dashboard</h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-page">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" data-startfrom="11" data-source-offset="-28"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 10;"><span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>d3 <span class="op">=</span> <span class="pp">require</span>(<span class="st">"d3@7"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="pp">require</span>(<span class="st">"leaflet@1.9.4"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Plot <span class="op">=</span> <span class="pp">require</span>(<span class="st">"@observablehq/plot@0.6"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">// Add Leaflet CSS</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" /&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-4" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" data-startfrom="21" data-source-offset="-20"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 20;"><span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>species_data <span class="op">=</span> d3<span class="op">.</span><span class="fu">csv</span>(<span class="st">"data/species_plots.csv"</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>polygons_geojson <span class="op">=</span> d3<span class="op">.</span><span class="fu">json</span>(<span class="st">"data/polygons.geojson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3" data-startfrom="25" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 24;"><span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">// Get unique species for dropdown</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>unique_species <span class="op">=</span> [<span class="op">...</span><span class="kw">new</span> <span class="bu">Set</span>(species_data<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">species</span>))]<span class="op">.</span><span class="fu">sort</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<section id="species-dashboard" class="level2">
+<h2 class="anchored" data-anchor-id="species-dashboard">Species Dashboard</h2>
+<div class="grid">
+<div class="g-col-4">
+<section id="select-species" class="level3">
+<h3 class="anchored" data-anchor-id="select-species">Select Species</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" data-startfrom="37" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 36;"><span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>viewof selected_species <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">select</span>(</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>  unique_species<span class="op">,</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"Species:"</span><span class="op">,</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> unique_species[<span class="dv">0</span>]</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</section>
+<section id="filtered-polygons" class="level3">
+<h3 class="anchored" data-anchor-id="filtered-polygons">Filtered Polygons</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" data-startfrom="51" data-source-offset="-42"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 50;"><span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="op">=</span> species_data<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">species</span> <span class="op">===</span> selected_species)</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>filtered_polygon_ids <span class="op">=</span> filtered_data<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">polygons_id</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<p>Showing <strong><span class="math inline">\({filtered_polygon_ids.length}** polygon(s) for **\)</span>{selected_species}</strong></p>
+</section>
+</div>
+<section id="map---click-on-a-polygon-to-view-plot" class="level3 g-col-8">
+<h3 class="anchored" data-anchor-id="map---click-on-a-polygon-to-view-plot">Map - Click on a polygon to view plot</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6" data-startfrom="62" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 61;"><span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="co">// Create map container</span></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>map_container <span class="op">=</span> <span class="fu">html</span><span class="vs">`&lt;div id="map" style="height: 500px; width: 100%;"&gt;&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7" data-startfrom="67" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 66;"><span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="co">// Initialize map - map_container is the div element itself</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="co">// Create map centered on Belgium (where coordinates are)</span></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>map <span class="op">=</span> {</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> m <span class="op">=</span> L<span class="op">.</span><span class="fu">map</span>(map_container)<span class="op">.</span><span class="fu">setView</span>([<span class="fl">51.15</span><span class="op">,</span> <span class="fl">4.15</span>]<span class="op">,</span> <span class="dv">11</span>)<span class="op">;</span></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Add base tile layer</span></span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>  L<span class="op">.</span><span class="fu">tileLayer</span>(<span class="st">'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'</span><span class="op">,</span> {</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>    <span class="dt">attribution</span><span class="op">:</span> <span class="st">'© OpenStreetMap contributors'</span></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>  })<span class="op">.</span><span class="fu">addTo</span>(m)<span class="op">;</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> m<span class="op">;</span></span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8" data-startfrom="82" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 81;"><span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a><span class="co">// Store layer group for polygons</span></span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>polygonLayer <span class="op">=</span> L<span class="op">.</span><span class="fu">layerGroup</span>()<span class="op">.</span><span class="fu">addTo</span>(map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9" data-startfrom="87" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 86;"><span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a><span class="co">// Function to get plot data for a specific species/polygon combination</span></span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">getPlotData</span>(polygon_id<span class="op">,</span> species_name) {</span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> record <span class="op">=</span> species_data<span class="op">.</span><span class="fu">find</span>(d <span class="kw">=&gt;</span> </span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a>    d<span class="op">.</span><span class="at">polygons_id</span> <span class="op">===</span> polygon_id <span class="op">&amp;&amp;</span> d<span class="op">.</span><span class="at">species</span> <span class="op">===</span> species_name</span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (record) {</span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">JSON</span><span class="op">.</span><span class="fu">parse</span>(record<span class="op">.</span><span class="at">plot</span>)<span class="op">;</span></span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-9" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10" data-startfrom="100" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 99;"><span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a><span class="co">// Function to create popup content with plot</span></span>
+<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">createPopupContent</span>(polygon_id<span class="op">,</span> species_name) {</span>
+<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> plotData <span class="op">=</span> <span class="fu">getPlotData</span>(polygon_id<span class="op">,</span> species_name)<span class="op">;</span></span>
+<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>plotData) <span class="cf">return</span> <span class="vs">`&lt;b&gt;No data available&lt;/b&gt;`</span><span class="op">;</span></span>
+<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> popupDiv <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">'div'</span>)<span class="op">;</span></span>
+<span id="cb10-106"><a href="#cb10-106" aria-hidden="true" tabindex="-1"></a>  popupDiv<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">minWidth</span> <span class="op">=</span> <span class="st">'300px'</span><span class="op">;</span></span>
+<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Add title</span></span>
+<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> title <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">'h4'</span>)<span class="op">;</span></span>
+<span id="cb10-110"><a href="#cb10-110" aria-hidden="true" tabindex="-1"></a>  title<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="vs">`</span><span class="sc">${</span>species_name<span class="sc">}</span><span class="vs"> - </span><span class="sc">${</span>polygon_id<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb10-111"><a href="#cb10-111" aria-hidden="true" tabindex="-1"></a>  title<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">marginTop</span> <span class="op">=</span> <span class="st">'0'</span><span class="op">;</span></span>
+<span id="cb10-112"><a href="#cb10-112" aria-hidden="true" tabindex="-1"></a>  popupDiv<span class="op">.</span><span class="fu">appendChild</span>(title)<span class="op">;</span></span>
+<span id="cb10-113"><a href="#cb10-113" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-114"><a href="#cb10-114" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Create plot using Observable Plot</span></span>
+<span id="cb10-115"><a href="#cb10-115" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> plotDiv <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">'div'</span>)<span class="op">;</span></span>
+<span id="cb10-116"><a href="#cb10-116" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> plot <span class="op">=</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb10-117"><a href="#cb10-117" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
+<span id="cb10-118"><a href="#cb10-118" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> <span class="dv">200</span><span class="op">,</span></span>
+<span id="cb10-119"><a href="#cb10-119" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span></span>
+<span id="cb10-120"><a href="#cb10-120" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {</span>
+<span id="cb10-121"><a href="#cb10-121" aria-hidden="true" tabindex="-1"></a>      <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb10-122"><a href="#cb10-122" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Count"</span></span>
+<span id="cb10-123"><a href="#cb10-123" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb10-124"><a href="#cb10-124" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {</span>
+<span id="cb10-125"><a href="#cb10-125" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Month"</span></span>
+<span id="cb10-126"><a href="#cb10-126" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb10-127"><a href="#cb10-127" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb10-128"><a href="#cb10-128" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">barY</span>(plotData<span class="op">.</span><span class="at">labels</span><span class="op">.</span><span class="fu">map</span>((label<span class="op">,</span> i) <span class="kw">=&gt;</span> ({</span>
+<span id="cb10-129"><a href="#cb10-129" aria-hidden="true" tabindex="-1"></a>        <span class="dt">month</span><span class="op">:</span> label<span class="op">,</span></span>
+<span id="cb10-130"><a href="#cb10-130" aria-hidden="true" tabindex="-1"></a>        <span class="dt">value</span><span class="op">:</span> plotData<span class="op">.</span><span class="at">data</span>[i]</span>
+<span id="cb10-131"><a href="#cb10-131" aria-hidden="true" tabindex="-1"></a>      }))<span class="op">,</span> {</span>
+<span id="cb10-132"><a href="#cb10-132" aria-hidden="true" tabindex="-1"></a>        <span class="dt">x</span><span class="op">:</span> <span class="st">"month"</span><span class="op">,</span></span>
+<span id="cb10-133"><a href="#cb10-133" aria-hidden="true" tabindex="-1"></a>        <span class="dt">y</span><span class="op">:</span> <span class="st">"value"</span><span class="op">,</span></span>
+<span id="cb10-134"><a href="#cb10-134" aria-hidden="true" tabindex="-1"></a>        <span class="dt">fill</span><span class="op">:</span> <span class="st">"steelblue"</span></span>
+<span id="cb10-135"><a href="#cb10-135" aria-hidden="true" tabindex="-1"></a>      })<span class="op">,</span></span>
+<span id="cb10-136"><a href="#cb10-136" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])</span>
+<span id="cb10-137"><a href="#cb10-137" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb10-138"><a href="#cb10-138" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb10-139"><a href="#cb10-139" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-140"><a href="#cb10-140" aria-hidden="true" tabindex="-1"></a>  plotDiv<span class="op">.</span><span class="fu">appendChild</span>(plot)<span class="op">;</span></span>
+<span id="cb10-141"><a href="#cb10-141" aria-hidden="true" tabindex="-1"></a>  popupDiv<span class="op">.</span><span class="fu">appendChild</span>(plotDiv)<span class="op">;</span></span>
+<span id="cb10-142"><a href="#cb10-142" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-143"><a href="#cb10-143" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> popupDiv<span class="op">;</span></span>
+<span id="cb10-144"><a href="#cb10-144" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-10" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11" data-startfrom="148" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 147;"><span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a><span class="co">// Reactive cell: Update polygons when filtered_polygon_ids changes</span></span>
+<span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Clear existing polygons</span></span>
+<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a>  polygonLayer<span class="op">.</span><span class="fu">clearLayers</span>()<span class="op">;</span></span>
+<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Add all polygons with appropriate styling</span></span>
+<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a>  polygons_geojson<span class="op">.</span><span class="at">features</span><span class="op">.</span><span class="fu">forEach</span>(feature <span class="kw">=&gt;</span> {</span>
+<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> polygon_id <span class="op">=</span> feature<span class="op">.</span><span class="at">properties</span><span class="op">.</span><span class="at">polygon_id</span><span class="op">;</span></span>
+<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> is_filtered <span class="op">=</span> filtered_polygon_ids<span class="op">.</span><span class="fu">includes</span>(polygon_id)<span class="op">;</span></span>
+<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Find all species for this polygon</span></span>
+<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> polygon_records <span class="op">=</span> species_data<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">polygons_id</span> <span class="op">===</span> polygon_id)<span class="op">;</span></span>
+<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> all_species <span class="op">=</span> polygon_records<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">species</span>)<span class="op">;</span></span>
+<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> species_count <span class="op">=</span> all_species<span class="op">.</span><span class="at">length</span><span class="op">;</span></span>
+<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Style based on whether it's in filtered set</span></span>
+<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> style <span class="op">=</span> {</span>
+<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fillColor</span><span class="op">:</span> is_filtered <span class="op">?</span> <span class="st">'#3388ff'</span> <span class="op">:</span> <span class="st">'#cccccc'</span><span class="op">,</span></span>
+<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a>      <span class="dt">weight</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a>      <span class="dt">opacity</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a>      <span class="dt">color</span><span class="op">:</span> is_filtered <span class="op">?</span> <span class="st">'#0066cc'</span> <span class="op">:</span> <span class="st">'#999999'</span><span class="op">,</span></span>
+<span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fillOpacity</span><span class="op">:</span> is_filtered <span class="op">?</span> <span class="fl">0.6</span> <span class="op">:</span> <span class="fl">0.3</span></span>
+<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> layer <span class="op">=</span> L<span class="op">.</span><span class="fu">geoJSON</span>(feature<span class="op">,</span> {</span>
+<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a>      <span class="dt">style</span><span class="op">:</span> style<span class="op">,</span></span>
+<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a>      <span class="dt">onEachFeature</span><span class="op">:</span> (feature<span class="op">,</span> layer) <span class="kw">=&gt;</span> {</span>
+<span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Add tooltip showing all species in this polygon</span></span>
+<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> tooltip_text <span class="op">=</span> all_species<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span> </span>
+<span id="cb11-177"><a href="#cb11-177" aria-hidden="true" tabindex="-1"></a>          <span class="op">?</span> <span class="vs">`</span><span class="sc">${</span>polygon_id<span class="sc">}</span><span class="vs">: </span><span class="sc">${</span>all_species<span class="op">.</span><span class="fu">join</span>(<span class="st">', '</span>)<span class="sc">}</span><span class="vs"> (</span><span class="sc">${</span>all_species<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs"> species)`</span></span>
+<span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a>          <span class="op">:</span> <span class="vs">`</span><span class="sc">${</span>polygon_id<span class="sc">}</span><span class="vs">: No species data`</span><span class="op">;</span></span>
+<span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a>        layer<span class="op">.</span><span class="fu">bindTooltip</span>(tooltip_text<span class="op">,</span> {</span>
+<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a>          <span class="dt">permanent</span><span class="op">:</span> <span class="kw">false</span><span class="op">,</span></span>
+<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a>          <span class="dt">direction</span><span class="op">:</span> <span class="st">'center'</span></span>
+<span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a>        })<span class="op">;</span></span>
+<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb11-185"><a href="#cb11-185" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Add click handler with popup</span></span>
+<span id="cb11-186"><a href="#cb11-186" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (is_filtered) {</span>
+<span id="cb11-187"><a href="#cb11-187" aria-hidden="true" tabindex="-1"></a>          layer<span class="op">.</span><span class="fu">on</span>(<span class="st">'click'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb11-188"><a href="#cb11-188" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Use the currently selected species for the popup</span></span>
+<span id="cb11-189"><a href="#cb11-189" aria-hidden="true" tabindex="-1"></a>            <span class="kw">const</span> popupContent <span class="op">=</span> <span class="fu">createPopupContent</span>(polygon_id<span class="op">,</span> selected_species)<span class="op">;</span></span>
+<span id="cb11-190"><a href="#cb11-190" aria-hidden="true" tabindex="-1"></a>            L<span class="op">.</span><span class="fu">popup</span>()</span>
+<span id="cb11-191"><a href="#cb11-191" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">setLatLng</span>(layer<span class="op">.</span><span class="fu">getBounds</span>()<span class="op">.</span><span class="fu">getCenter</span>())</span>
+<span id="cb11-192"><a href="#cb11-192" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">setContent</span>(popupContent)</span>
+<span id="cb11-193"><a href="#cb11-193" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">openOn</span>(map)<span class="op">;</span></span>
+<span id="cb11-194"><a href="#cb11-194" aria-hidden="true" tabindex="-1"></a>          })<span class="op">;</span></span>
+<span id="cb11-195"><a href="#cb11-195" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb11-196"><a href="#cb11-196" aria-hidden="true" tabindex="-1"></a>          <span class="co">// Change cursor on hover</span></span>
+<span id="cb11-197"><a href="#cb11-197" aria-hidden="true" tabindex="-1"></a>          layer<span class="op">.</span><span class="fu">on</span>(<span class="st">'mouseover'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb11-198"><a href="#cb11-198" aria-hidden="true" tabindex="-1"></a>            layer<span class="op">.</span><span class="fu">setStyle</span>({ <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.8</span> })<span class="op">;</span></span>
+<span id="cb11-199"><a href="#cb11-199" aria-hidden="true" tabindex="-1"></a>          })<span class="op">;</span></span>
+<span id="cb11-200"><a href="#cb11-200" aria-hidden="true" tabindex="-1"></a>          layer<span class="op">.</span><span class="fu">on</span>(<span class="st">'mouseout'</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb11-201"><a href="#cb11-201" aria-hidden="true" tabindex="-1"></a>            layer<span class="op">.</span><span class="fu">setStyle</span>({ <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.6</span> })<span class="op">;</span></span>
+<span id="cb11-202"><a href="#cb11-202" aria-hidden="true" tabindex="-1"></a>          })<span class="op">;</span></span>
+<span id="cb11-203"><a href="#cb11-203" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb11-205"><a href="#cb11-205" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb11-206"><a href="#cb11-206" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-207"><a href="#cb11-207" aria-hidden="true" tabindex="-1"></a>    layer<span class="op">.</span><span class="fu">addTo</span>(polygonLayer)<span class="op">;</span></span>
+<span id="cb11-208"><a href="#cb11-208" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb11-209"><a href="#cb11-209" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-210"><a href="#cb11-210" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Fit map to filtered polygons if any</span></span>
+<span id="cb11-211"><a href="#cb11-211" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (filtered_polygon_ids<span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb11-212"><a href="#cb11-212" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> bounds <span class="op">=</span> polygonLayer<span class="op">.</span><span class="fu">getBounds</span>()<span class="op">;</span></span>
+<span id="cb11-213"><a href="#cb11-213" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (bounds<span class="op">.</span><span class="fu">isValid</span>()) {</span>
+<span id="cb11-214"><a href="#cb11-214" aria-hidden="true" tabindex="-1"></a>      map<span class="op">.</span><span class="fu">fitBounds</span>(bounds<span class="op">,</span> { <span class="dt">padding</span><span class="op">:</span> [<span class="dv">50</span><span class="op">,</span> <span class="dv">50</span>] })<span class="op">;</span></span>
+<span id="cb11-215"><a href="#cb11-215" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb11-216"><a href="#cb11-216" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb11-217"><a href="#cb11-217" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-11" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+</div>
+<hr>
+<p><strong>Instructions:</strong> 1. Select a species from the dropdown on the left 2. The map will highlight polygons containing that species in blue 3. Click on any highlighted polygon to view its plot in a popup</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIExvYWQgcmVxdWlyZWQgbGlicmFyaWVzXHJcbmQzID0gcmVxdWlyZShcImQzQDdcIilcclxuTCA9IHJlcXVpcmUoXCJsZWFmbGV0QDEuOS40XCIpXHJcblBsb3QgPSByZXF1aXJlKFwiQG9ic2VydmFibGVocS9wbG90QDAuNlwiKVxyXG5cclxuLy8gQWRkIExlYWZsZXQgQ1NTXHJcbmh0bWxgPGxpbmsgcmVsPVwic3R5bGVzaGVldFwiIGhyZWY9XCJodHRwczovL3VucGtnLmNvbS9sZWFmbGV0QDEuOS40L2Rpc3QvbGVhZmxldC5jc3NcIiAvPmBcclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gTG9hZCBkYXRhIGZpbGVzXHJcbnNwZWNpZXNfZGF0YSA9IGQzLmNzdihcImRhdGEvc3BlY2llc19wbG90cy5jc3ZcIilcclxucG9seWdvbnNfZ2VvanNvbiA9IGQzLmpzb24oXCJkYXRhL3BvbHlnb25zLmdlb2pzb25cIilcclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gR2V0IHVuaXF1ZSBzcGVjaWVzIGZvciBkcm9wZG93blxyXG51bmlxdWVfc3BlY2llcyA9IFsuLi5uZXcgU2V0KHNwZWNpZXNfZGF0YS5tYXAoZCA9PiBkLnNwZWNpZXMpKV0uc29ydCgpXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBzZWxlY3RlZF9zcGVjaWVzID0gSW5wdXRzLnNlbGVjdChcclxuICB1bmlxdWVfc3BlY2llcyxcclxuICB7XHJcbiAgICBsYWJlbDogXCJTcGVjaWVzOlwiLFxyXG4gICAgdmFsdWU6IHVuaXF1ZV9zcGVjaWVzWzBdXHJcbiAgfVxyXG4pXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIEZpbHRlciBkYXRhIGJhc2VkIG9uIHNlbGVjdGVkIHNwZWNpZXNcclxuZmlsdGVyZWRfZGF0YSA9IHNwZWNpZXNfZGF0YS5maWx0ZXIoZCA9PiBkLnNwZWNpZXMgPT09IHNlbGVjdGVkX3NwZWNpZXMpXHJcbmZpbHRlcmVkX3BvbHlnb25faWRzID0gZmlsdGVyZWRfZGF0YS5tYXAoZCA9PiBkLnBvbHlnb25zX2lkKVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTYiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyBDcmVhdGUgbWFwIGNvbnRhaW5lclxyXG5tYXBfY29udGFpbmVyID0gaHRtbGA8ZGl2IGlkPVwibWFwXCIgc3R5bGU9XCJoZWlnaHQ6IDUwMHB4OyB3aWR0aDogMTAwJTtcIj48L2Rpdj5gXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIEluaXRpYWxpemUgbWFwIC0gbWFwX2NvbnRhaW5lciBpcyB0aGUgZGl2IGVsZW1lbnQgaXRzZWxmXHJcbi8vIENyZWF0ZSBtYXAgY2VudGVyZWQgb24gQmVsZ2l1bSAod2hlcmUgY29vcmRpbmF0ZXMgYXJlKVxyXG5tYXAgPSB7XHJcbiAgY29uc3QgbSA9IEwubWFwKG1hcF9jb250YWluZXIpLnNldFZpZXcoWzUxLjE1LCA0LjE1XSwgMTEpO1xyXG4gIFxyXG4gIC8vIEFkZCBiYXNlIHRpbGUgbGF5ZXJcclxuICBMLnRpbGVMYXllcignaHR0cHM6Ly97c30udGlsZS5vcGVuc3RyZWV0bWFwLm9yZy97en0ve3h9L3t5fS5wbmcnLCB7XHJcbiAgICBhdHRyaWJ1dGlvbjogJ8KpIE9wZW5TdHJlZXRNYXAgY29udHJpYnV0b3JzJ1xyXG4gIH0pLmFkZFRvKG0pO1xyXG4gIFxyXG4gIHJldHVybiBtO1xyXG59XHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtOCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIFN0b3JlIGxheWVyIGdyb3VwIGZvciBwb2x5Z29uc1xyXG5wb2x5Z29uTGF5ZXIgPSBMLmxheWVyR3JvdXAoKS5hZGRUbyhtYXApXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtOSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIEZ1bmN0aW9uIHRvIGdldCBwbG90IGRhdGEgZm9yIGEgc3BlY2lmaWMgc3BlY2llcy9wb2x5Z29uIGNvbWJpbmF0aW9uXHJcbmZ1bmN0aW9uIGdldFBsb3REYXRhKHBvbHlnb25faWQsIHNwZWNpZXNfbmFtZSkge1xyXG4gIGNvbnN0IHJlY29yZCA9IHNwZWNpZXNfZGF0YS5maW5kKGQgPT4gXHJcbiAgICBkLnBvbHlnb25zX2lkID09PSBwb2x5Z29uX2lkICYmIGQuc3BlY2llcyA9PT0gc3BlY2llc19uYW1lXHJcbiAgKTtcclxuICBpZiAocmVjb3JkKSB7XHJcbiAgICByZXR1cm4gSlNPTi5wYXJzZShyZWNvcmQucGxvdCk7XHJcbiAgfVxyXG4gIHJldHVybiBudWxsO1xyXG59XHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTAiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyBGdW5jdGlvbiB0byBjcmVhdGUgcG9wdXAgY29udGVudCB3aXRoIHBsb3RcclxuZnVuY3Rpb24gY3JlYXRlUG9wdXBDb250ZW50KHBvbHlnb25faWQsIHNwZWNpZXNfbmFtZSkge1xyXG4gIGNvbnN0IHBsb3REYXRhID0gZ2V0UGxvdERhdGEocG9seWdvbl9pZCwgc3BlY2llc19uYW1lKTtcclxuICBpZiAoIXBsb3REYXRhKSByZXR1cm4gYDxiPk5vIGRhdGEgYXZhaWxhYmxlPC9iPmA7XHJcbiAgXHJcbiAgY29uc3QgcG9wdXBEaXYgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTtcclxuICBwb3B1cERpdi5zdHlsZS5taW5XaWR0aCA9ICczMDBweCc7XHJcbiAgXHJcbiAgLy8gQWRkIHRpdGxlXHJcbiAgY29uc3QgdGl0bGUgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdoNCcpO1xyXG4gIHRpdGxlLnRleHRDb250ZW50ID0gYCR7c3BlY2llc19uYW1lfSAtICR7cG9seWdvbl9pZH1gO1xyXG4gIHRpdGxlLnN0eWxlLm1hcmdpblRvcCA9ICcwJztcclxuICBwb3B1cERpdi5hcHBlbmRDaGlsZCh0aXRsZSk7XHJcbiAgXHJcbiAgLy8gQ3JlYXRlIHBsb3QgdXNpbmcgT2JzZXJ2YWJsZSBQbG90XHJcbiAgY29uc3QgcGxvdERpdiA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO1xyXG4gIGNvbnN0IHBsb3QgPSBQbG90LnBsb3Qoe1xyXG4gICAgd2lkdGg6IDMwMCxcclxuICAgIGhlaWdodDogMjAwLFxyXG4gICAgbWFyZ2luTGVmdDogNDAsXHJcbiAgICB5OiB7XHJcbiAgICAgIGdyaWQ6IHRydWUsXHJcbiAgICAgIGxhYmVsOiBcIkNvdW50XCJcclxuICAgIH0sXHJcbiAgICB4OiB7XHJcbiAgICAgIGxhYmVsOiBcIk1vbnRoXCJcclxuICAgIH0sXHJcbiAgICBtYXJrczogW1xyXG4gICAgICBQbG90LmJhclkocGxvdERhdGEubGFiZWxzLm1hcCgobGFiZWwsIGkpID0+ICh7XHJcbiAgICAgICAgbW9udGg6IGxhYmVsLFxyXG4gICAgICAgIHZhbHVlOiBwbG90RGF0YS5kYXRhW2ldXHJcbiAgICAgIH0pKSwge1xyXG4gICAgICAgIHg6IFwibW9udGhcIixcclxuICAgICAgICB5OiBcInZhbHVlXCIsXHJcbiAgICAgICAgZmlsbDogXCJzdGVlbGJsdWVcIlxyXG4gICAgICB9KSxcclxuICAgICAgUGxvdC5ydWxlWShbMF0pXHJcbiAgICBdXHJcbiAgfSk7XHJcbiAgXHJcbiAgcGxvdERpdi5hcHBlbmRDaGlsZChwbG90KTtcclxuICBwb3B1cERpdi5hcHBlbmRDaGlsZChwbG90RGl2KTtcclxuICBcclxuICByZXR1cm4gcG9wdXBEaXY7XHJcbn1cclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIFJlYWN0aXZlIGNlbGw6IFVwZGF0ZSBwb2x5Z29ucyB3aGVuIGZpbHRlcmVkX3BvbHlnb25faWRzIGNoYW5nZXNcclxue1xyXG4gIC8vIENsZWFyIGV4aXN0aW5nIHBvbHlnb25zXHJcbiAgcG9seWdvbkxheWVyLmNsZWFyTGF5ZXJzKCk7XHJcbiAgXHJcbiAgLy8gQWRkIGFsbCBwb2x5Z29ucyB3aXRoIGFwcHJvcHJpYXRlIHN0eWxpbmdcclxuICBwb2x5Z29uc19nZW9qc29uLmZlYXR1cmVzLmZvckVhY2goZmVhdHVyZSA9PiB7XHJcbiAgICBjb25zdCBwb2x5Z29uX2lkID0gZmVhdHVyZS5wcm9wZXJ0aWVzLnBvbHlnb25faWQ7XHJcbiAgICBjb25zdCBpc19maWx0ZXJlZCA9IGZpbHRlcmVkX3BvbHlnb25faWRzLmluY2x1ZGVzKHBvbHlnb25faWQpO1xyXG4gICAgXHJcbiAgICAvLyBGaW5kIGFsbCBzcGVjaWVzIGZvciB0aGlzIHBvbHlnb25cclxuICAgIGNvbnN0IHBvbHlnb25fcmVjb3JkcyA9IHNwZWNpZXNfZGF0YS5maWx0ZXIoZCA9PiBkLnBvbHlnb25zX2lkID09PSBwb2x5Z29uX2lkKTtcclxuICAgIGNvbnN0IGFsbF9zcGVjaWVzID0gcG9seWdvbl9yZWNvcmRzLm1hcChkID0+IGQuc3BlY2llcyk7XHJcbiAgICBjb25zdCBzcGVjaWVzX2NvdW50ID0gYWxsX3NwZWNpZXMubGVuZ3RoO1xyXG4gICAgXHJcbiAgICAvLyBTdHlsZSBiYXNlZCBvbiB3aGV0aGVyIGl0J3MgaW4gZmlsdGVyZWQgc2V0XHJcbiAgICBjb25zdCBzdHlsZSA9IHtcclxuICAgICAgZmlsbENvbG9yOiBpc19maWx0ZXJlZCA/ICcjMzM4OGZmJyA6ICcjY2NjY2NjJyxcclxuICAgICAgd2VpZ2h0OiAyLFxyXG4gICAgICBvcGFjaXR5OiAxLFxyXG4gICAgICBjb2xvcjogaXNfZmlsdGVyZWQgPyAnIzAwNjZjYycgOiAnIzk5OTk5OScsXHJcbiAgICAgIGZpbGxPcGFjaXR5OiBpc19maWx0ZXJlZCA/IDAuNiA6IDAuM1xyXG4gICAgfTtcclxuICAgIFxyXG4gICAgY29uc3QgbGF5ZXIgPSBMLmdlb0pTT04oZmVhdHVyZSwge1xyXG4gICAgICBzdHlsZTogc3R5bGUsXHJcbiAgICAgIG9uRWFjaEZlYXR1cmU6IChmZWF0dXJlLCBsYXllcikgPT4ge1xyXG4gICAgICAgIC8vIEFkZCB0b29sdGlwIHNob3dpbmcgYWxsIHNwZWNpZXMgaW4gdGhpcyBwb2x5Z29uXHJcbiAgICAgICAgY29uc3QgdG9vbHRpcF90ZXh0ID0gYWxsX3NwZWNpZXMubGVuZ3RoID4gMCBcclxuICAgICAgICAgID8gYCR7cG9seWdvbl9pZH06ICR7YWxsX3NwZWNpZXMuam9pbignLCAnKX0gKCR7YWxsX3NwZWNpZXMubGVuZ3RofSBzcGVjaWVzKWBcclxuICAgICAgICAgIDogYCR7cG9seWdvbl9pZH06IE5vIHNwZWNpZXMgZGF0YWA7XHJcbiAgICAgICAgXHJcbiAgICAgICAgbGF5ZXIuYmluZFRvb2x0aXAodG9vbHRpcF90ZXh0LCB7XHJcbiAgICAgICAgICBwZXJtYW5lbnQ6IGZhbHNlLFxyXG4gICAgICAgICAgZGlyZWN0aW9uOiAnY2VudGVyJ1xyXG4gICAgICAgIH0pO1xyXG4gICAgICAgIFxyXG4gICAgICAgIC8vIEFkZCBjbGljayBoYW5kbGVyIHdpdGggcG9wdXBcclxuICAgICAgICBpZiAoaXNfZmlsdGVyZWQpIHtcclxuICAgICAgICAgIGxheWVyLm9uKCdjbGljaycsICgpID0+IHtcclxuICAgICAgICAgICAgLy8gVXNlIHRoZSBjdXJyZW50bHkgc2VsZWN0ZWQgc3BlY2llcyBmb3IgdGhlIHBvcHVwXHJcbiAgICAgICAgICAgIGNvbnN0IHBvcHVwQ29udGVudCA9IGNyZWF0ZVBvcHVwQ29udGVudChwb2x5Z29uX2lkLCBzZWxlY3RlZF9zcGVjaWVzKTtcclxuICAgICAgICAgICAgTC5wb3B1cCgpXHJcbiAgICAgICAgICAgICAgLnNldExhdExuZyhsYXllci5nZXRCb3VuZHMoKS5nZXRDZW50ZXIoKSlcclxuICAgICAgICAgICAgICAuc2V0Q29udGVudChwb3B1cENvbnRlbnQpXHJcbiAgICAgICAgICAgICAgLm9wZW5PbihtYXApO1xyXG4gICAgICAgICAgfSk7XHJcbiAgICAgICAgICBcclxuICAgICAgICAgIC8vIENoYW5nZSBjdXJzb3Igb24gaG92ZXJcclxuICAgICAgICAgIGxheWVyLm9uKCdtb3VzZW92ZXInLCAoKSA9PiB7XHJcbiAgICAgICAgICAgIGxheWVyLnNldFN0eWxlKHsgZmlsbE9wYWNpdHk6IDAuOCB9KTtcclxuICAgICAgICAgIH0pO1xyXG4gICAgICAgICAgbGF5ZXIub24oJ21vdXNlb3V0JywgKCkgPT4ge1xyXG4gICAgICAgICAgICBsYXllci5zZXRTdHlsZSh7IGZpbGxPcGFjaXR5OiAwLjYgfSk7XHJcbiAgICAgICAgICB9KTtcclxuICAgICAgICB9XHJcbiAgICAgIH1cclxuICAgIH0pO1xyXG4gICAgXHJcbiAgICBsYXllci5hZGRUbyhwb2x5Z29uTGF5ZXIpO1xyXG4gIH0pO1xyXG4gIFxyXG4gIC8vIEZpdCBtYXAgdG8gZmlsdGVyZWQgcG9seWdvbnMgaWYgYW55XHJcbiAgaWYgKGZpbHRlcmVkX3BvbHlnb25faWRzLmxlbmd0aCA+IDApIHtcclxuICAgIGNvbnN0IGJvdW5kcyA9IHBvbHlnb25MYXllci5nZXRCb3VuZHMoKTtcclxuICAgIGlmIChib3VuZHMuaXNWYWxpZCgpKSB7XHJcbiAgICAgIG1hcC5maXRCb3VuZHMoYm91bmRzLCB7IHBhZGRpbmc6IFs1MCwgNTBdIH0pO1xyXG4gICAgfVxyXG4gIH1cclxufVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3NlbGVjdGVkX3NwZWNpZXMnKSJ9XX0=
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
