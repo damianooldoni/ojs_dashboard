@@ -200,12 +200,9 @@ map_container = html`<div id="map" style="height: 500px; width: 100%;"></div>`
     }
   }
   
-  // Initial update
-  updatePolygons();
-  
-  // Update when filtered_polygon_ids changes
+  // Update polygons when filtered_polygon_ids changes
   // This will be triggered automatically by Observable's reactive system
-  selected_species; // Add dependency
+  filtered_polygon_ids; // Add dependency to trigger reactivity
   updatePolygons();
   
   return map_container;
