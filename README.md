@@ -16,8 +16,19 @@ The dashboard works with two data files:
    - `polygons_id`: Polygon identifiers
    - `species`: Species names
    - `plot`: Plot data (JSON format)
+   
+   **Note**: The combination of `polygons_id` and `species` is unique. Multiple species can exist in the same polygon, and each unique species/polygon combination has its own associated plot.
 
 2. **polygons.geojson**: Geospatial data with polygon geometries and `polygon_id` properties
+
+### Example Data
+
+The sample dataset includes 5 polygons with varying species compositions:
+- **poly_1**: Oak, Pine (2 species)
+- **poly_2**: Pine, Birch (2 species)
+- **poly_3**: Oak, Pine, Birch (3 species)
+- **poly_4**: Birch, Oak (2 species)
+- **poly_5**: Pine (1 species)
 
 ## Usage
 
@@ -47,9 +58,12 @@ The output will be in the `docs/` directory.
 ## How It Works
 
 1. Select a species from the dropdown menu (left panel)
-2. The map displays all polygons, highlighting those containing the selected species
-3. Click on any highlighted (blue) polygon to view its plot in a popup
-4. Gray polygons contain other species and are not clickable
+2. The map displays all polygons, highlighting those containing the selected species in blue
+3. Hover over any polygon to see all species it contains and the count
+4. Click on any highlighted (blue) polygon to view the plot for the selected species in a popup
+5. Gray polygons do not contain the selected species and are not clickable
+
+**Important**: When you click on a polygon, the popup shows the plot data specifically for the selected species in that polygon. Since polygons can contain multiple species, each species/polygon combination has its own unique plot.
 
 ## Technologies Used
 
