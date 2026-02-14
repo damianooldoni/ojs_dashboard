@@ -4,7 +4,7 @@ Interactive dashboard using Observable JavaScript (OJS) in Quarto for visualizin
 
 ## Features
 
-- **Species Selection**: Dropdown menu to filter data by species
+- **Species Selection with Autocomplete**: Text input with autocomplete to filter data by species - perfect for long species lists
 - **Interactive Map**: Leaflet map displaying polygons with species data
 - **Plot Visualization**: Click on any polygon to view detailed plots in a popup
 - **Dark Theme**: Modern dark theme for better visual aesthetics
@@ -58,7 +58,7 @@ The output will be in the `docs/` directory.
 
 ## How It Works
 
-1. Select a species from the dropdown menu (left panel)
+1. Type a species name in the autocomplete text input (left panel) - suggestions will appear as you type
 2. The map displays all polygons, highlighting those containing the selected species in blue
 3. Hover over any polygon to see all species it contains and the count
 4. Click on any highlighted (blue) polygon to view the plot for the selected species in a popup
