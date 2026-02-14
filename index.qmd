@@ -1,0 +1,224 @@
+---
+title: "OJS Dashboard"
+format:
+  html:
+    page-layout: full
+    theme: cosmo
+---
+
+```{ojs}
+// Load required libraries
+d3 = require("d3@7")
+L = require("leaflet@1.9.4")
+Plot = require("@observablehq/plot@0.6")
+
+// Add Leaflet CSS
+html`<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />`
+```
+
+```{ojs}
+// Load data files
+species_data = d3.csv("data/species_plots.csv")
+polygons_geojson = d3.json("data/polygons.geojson")
+```
+
+```{ojs}
+// Get unique species for dropdown
+unique_species = [...new Set(species_data.map(d => d.species))].sort()
+```
+
+## Species Dashboard
+
+::: {.grid}
+
+::: {.g-col-4}
+### Select Species
+
+```{ojs}
+viewof selected_species = Inputs.select(
+  unique_species,
+  {
+    label: "Species:",
+    value: unique_species[0]
+  }
+)
+```
+
+### Filtered Polygons
+
+```{ojs}
+// Filter data based on selected species
+filtered_data = species_data.filter(d => d.species === selected_species)
+filtered_polygon_ids = filtered_data.map(d => d.polygons_id)
+```
+
+Showing **${filtered_polygon_ids.length}** polygon(s) for **${selected_species}**
+
+:::
+
+::: {.g-col-8}
+### Map - Click on a polygon to view plot
+
+```{ojs}
+// Create map container
+map_container = html`<div id="map" style="height: 500px; width: 100%;"></div>`
+```
+
+```{ojs}
+{
+  // Initialize map
+  const container = map_container.querySelector('#map');
+  
+  // Create map centered on Belgium (where coordinates are)
+  const map = L.map(container).setView([51.15, 4.15], 11);
+  
+  // Add base tile layer
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+  
+  // Store layer group for polygons
+  const polygonLayer = L.layerGroup().addTo(map);
+  
+  // Function to get plot data for a polygon
+  function getPlotData(polygon_id) {
+    const record = species_data.find(d => d.polygons_id === polygon_id);
+    if (record) {
+      return JSON.parse(record.plot);
+    }
+    return null;
+  }
+  
+  // Function to create popup content with plot
+  function createPopupContent(polygon_id, species_name) {
+    const plotData = getPlotData(polygon_id);
+    if (!plotData) return `<b>No data available</b>`;
+    
+    const popupDiv = document.createElement('div');
+    popupDiv.style.minWidth = '300px';
+    
+    // Add title
+    const title = document.createElement('h4');
+    title.textContent = `${species_name} - ${polygon_id}`;
+    title.style.marginTop = '0';
+    popupDiv.appendChild(title);
+    
+    // Create plot using Observable Plot
+    const plotDiv = document.createElement('div');
+    const plot = Plot.plot({
+      width: 300,
+      height: 200,
+      marginLeft: 40,
+      y: {
+        grid: true,
+        label: "Count"
+      },
+      x: {
+        label: "Month"
+      },
+      marks: [
+        Plot.barY(plotData.labels.map((label, i) => ({
+          month: label,
+          value: plotData.data[i]
+        })), {
+          x: "month",
+          y: "value",
+          fill: "steelblue"
+        }),
+        Plot.ruleY([0])
+      ]
+    });
+    
+    plotDiv.appendChild(plot);
+    popupDiv.appendChild(plotDiv);
+    
+    return popupDiv;
+  }
+  
+  // Function to update polygons based on selected species
+  function updatePolygons() {
+    // Clear existing polygons
+    polygonLayer.clearLayers();
+    
+    // Add filtered polygons
+    polygons_geojson.features.forEach(feature => {
+      const polygon_id = feature.properties.polygon_id;
+      const is_filtered = filtered_polygon_ids.includes(polygon_id);
+      
+      // Find species for this polygon
+      const record = species_data.find(d => d.polygons_id === polygon_id);
+      const species_name = record ? record.species : 'Unknown';
+      
+      // Style based on whether it's in filtered set
+      const style = {
+        fillColor: is_filtered ? '#3388ff' : '#cccccc',
+        weight: 2,
+        opacity: 1,
+        color: is_filtered ? '#0066cc' : '#999999',
+        fillOpacity: is_filtered ? 0.6 : 0.3
+      };
+      
+      const layer = L.geoJSON(feature, {
+        style: style,
+        onEachFeature: (feature, layer) => {
+          // Add tooltip
+          layer.bindTooltip(`${polygon_id} (${species_name})`, {
+            permanent: false,
+            direction: 'center'
+          });
+          
+          // Add click handler with popup
+          if (is_filtered) {
+            layer.on('click', () => {
+              const popupContent = createPopupContent(polygon_id, species_name);
+              L.popup()
+                .setLatLng(layer.getBounds().getCenter())
+                .setContent(popupContent)
+                .openOn(map);
+            });
+            
+            // Change cursor on hover
+            layer.on('mouseover', () => {
+              layer.setStyle({ fillOpacity: 0.8 });
+            });
+            layer.on('mouseout', () => {
+              layer.setStyle({ fillOpacity: 0.6 });
+            });
+          }
+        }
+      });
+      
+      layer.addTo(polygonLayer);
+    });
+    
+    // Fit map to filtered polygons if any
+    if (filtered_polygon_ids.length > 0) {
+      const bounds = polygonLayer.getBounds();
+      if (bounds.isValid()) {
+        map.fitBounds(bounds, { padding: [50, 50] });
+      }
+    }
+  }
+  
+  // Initial update
+  updatePolygons();
+  
+  // Update when filtered_polygon_ids changes
+  // This will be triggered automatically by Observable's reactive system
+  selected_species; // Add dependency
+  updatePolygons();
+  
+  return map_container;
+}
+```
+
+:::
+
+:::
+
+---
+
+**Instructions:**
+1. Select a species from the dropdown on the left
+2. The map will highlight polygons containing that species in blue
+3. Click on any highlighted polygon to view its plot in a popup
