@@ -13,7 +13,7 @@ The OJS dashboard had a critical reactivity issue:
 The original code structure had everything in a single OJS cell:
 
 ```javascript
-```{ojs}
+```javascript
 {
   const map = L.map(map_container).setView([51.15, 4.15], 11);
   const polygonLayer = L.layerGroup().addTo(map);
@@ -39,7 +39,7 @@ Separated the code into multiple OJS cells with clear responsibilities:
 
 ### 1. Map Initialization (runs once)
 ```javascript
-```{ojs}
+```javascript
 map = {
   const m = L.map(map_container).setView([51.15, 4.15], 11);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -51,24 +51,24 @@ map = {
 
 ### 2. Layer Group (runs once, depends on map)
 ```javascript
-```{ojs}
+```javascript
 polygonLayer = L.layerGroup().addTo(map)
 ```
 
 ### 3. Helper Functions (defined once)
 ```javascript
-```{ojs}
+```javascript
 function getPlotData(polygon_id) { ... }
 ```
 
 ```javascript
-```{ojs}
+```javascript
 function createPopupContent(polygon_id, species_name) { ... }
 ```
 
 ### 4. Reactive Polygon Update (runs whenever filtered_polygon_ids changes)
 ```javascript
-```{ojs}
+```javascript
 {
   // Clear existing polygons
   polygonLayer.clearLayers();

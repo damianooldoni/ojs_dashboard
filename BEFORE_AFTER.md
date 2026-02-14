@@ -3,7 +3,7 @@
 ## BEFORE (Broken - Single Cell)
 
 ```
-```{ojs}
+```javascript
 {
   const map = L.map(...).setView(...);           // Initialize once
   const polygonLayer = L.layerGroup().addTo(map); // Initialize once
@@ -37,7 +37,7 @@
 
 ### Cell 1: Map Initialization
 ```
-```{ojs}
+```javascript
 map = {
   const m = L.map(map_container).setView([51.15, 4.15], 11);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -50,14 +50,14 @@ map = {
 
 ### Cell 2: Layer Group
 ```
-```{ojs}
+```javascript
 polygonLayer = L.layerGroup().addTo(map)
 ```
 ✅ Runs once (depends on `map`), `polygonLayer` is available globally
 
 ### Cell 3: Helper Function 1
 ```
-```{ojs}
+```javascript
 function getPlotData(polygon_id) {
   const record = species_data.find(d => d.polygons_id === polygon_id);
   if (record) {
@@ -70,7 +70,7 @@ function getPlotData(polygon_id) {
 
 ### Cell 4: Helper Function 2
 ```
-```{ojs}
+```javascript
 function createPopupContent(polygon_id, species_name) {
   const plotData = getPlotData(polygon_id);
   if (!plotData) return `<b>No data available</b>`;
@@ -82,7 +82,7 @@ function createPopupContent(polygon_id, species_name) {
 
 ### Cell 5: REACTIVE Polygon Update
 ```
-```{ojs}
+```javascript
 {
   // Clear existing polygons
   polygonLayer.clearLayers();
