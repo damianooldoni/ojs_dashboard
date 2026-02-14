@@ -14,7 +14,7 @@ Stack trace:
 
 ## Root Cause
 
-The documentation files `BEFORE_AFTER.md` and `REACTIVITY_FIX.md` contained code blocks marked with triple backticks followed by `{ojs}`, like this pattern: ` ``` ` + `{ojs}`.
+The documentation files `BEFORE_AFTER.md` and `REACTIVITY_FIX.md` contained code blocks marked with the pattern: three backticks followed by `{ojs}`.
 
 This syntax tells Quarto that the code block contains **executable** OJS code. When Quarto encounters executable code blocks in a file, it requires the file to have a `.qmd` (Quarto Markdown) extension, not a plain `.md` extension.
 
