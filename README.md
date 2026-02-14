@@ -7,6 +7,7 @@ Interactive dashboard using Observable JavaScript (OJS) in Quarto for visualizin
 - **Species Selection**: Dropdown menu to filter data by species
 - **Interactive Map**: Leaflet map displaying polygons with species data
 - **Plot Visualization**: Click on any polygon to view detailed plots in a popup
+- **Dark Theme**: Modern dark theme for better visual aesthetics
 
 ## Data Structure
 
