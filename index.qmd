@@ -48,12 +48,19 @@ viewof selected_species = Inputs.text(
 ### Filtered Polygons
 
 ```{ojs}
-// Filter data based on selected species
-filtered_data = species_data.filter(d => d.species === selected_species)
+// Validate that selected species exists in the list
+validated_species = unique_species.includes(selected_species) 
+  ? selected_species 
+  : unique_species[0]
+```
+
+```{ojs}
+// Filter data based on validated species
+filtered_data = species_data.filter(d => d.species === validated_species)
 filtered_polygon_ids = filtered_data.map(d => d.polygons_id)
 ```
 
-Showing **${filtered_polygon_ids.length}** polygon(s) for **${selected_species}**
+Showing **${filtered_polygon_ids.length}** polygon(s) for **${validated_species}**
 
 :::
 
@@ -187,8 +194,8 @@ function createPopupContent(polygon_id, species_name) {
         // Add click handler with popup
         if (is_filtered) {
           layer.on('click', () => {
-            // Use the currently selected species for the popup
-            const popupContent = createPopupContent(polygon_id, selected_species);
+            // Use the currently validated species for the popup
+            const popupContent = createPopupContent(polygon_id, validated_species);
             L.popup()
               .setLatLng(layer.getBounds().getCenter())
               .setContent(popupContent)
