@@ -35,11 +35,12 @@ unique_species = [...new Set(species_data.map(d => d.species))].sort()
 ### Select Species
 
 ```{ojs}
-viewof selected_species = Inputs.select(
-  unique_species,
+viewof selected_species = Inputs.text(
   {
     label: "Species:",
-    value: unique_species[0]
+    placeholder: "Type to search species...",
+    value: unique_species[0],
+    datalist: unique_species
   }
 )
 ```
