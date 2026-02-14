@@ -65,145 +65,148 @@ map_container = html`<div id="map" style="height: 500px; width: 100%;"></div>`
 ```
 
 ```{ojs}
-{
-  // Initialize map - map_container is the div element itself
-  // Create map centered on Belgium (where coordinates are)
-  const map = L.map(map_container).setView([51.15, 4.15], 11);
+// Initialize map - map_container is the div element itself
+// Create map centered on Belgium (where coordinates are)
+map = {
+  const m = L.map(map_container).setView([51.15, 4.15], 11);
   
   // Add base tile layer
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
-  }).addTo(map);
+  }).addTo(m);
   
-  // Store layer group for polygons
-  const polygonLayer = L.layerGroup().addTo(map);
+  return m;
+}
+```
+
+```{ojs}
+// Store layer group for polygons
+polygonLayer = L.layerGroup().addTo(map)
+```
+
+```{ojs}
+// Function to get plot data for a polygon
+function getPlotData(polygon_id) {
+  const record = species_data.find(d => d.polygons_id === polygon_id);
+  if (record) {
+    return JSON.parse(record.plot);
+  }
+  return null;
+}
+```
+
+```{ojs}
+// Function to create popup content with plot
+function createPopupContent(polygon_id, species_name) {
+  const plotData = getPlotData(polygon_id);
+  if (!plotData) return `<b>No data available</b>`;
   
-  // Function to get plot data for a polygon
-  function getPlotData(polygon_id) {
+  const popupDiv = document.createElement('div');
+  popupDiv.style.minWidth = '300px';
+  
+  // Add title
+  const title = document.createElement('h4');
+  title.textContent = `${species_name} - ${polygon_id}`;
+  title.style.marginTop = '0';
+  popupDiv.appendChild(title);
+  
+  // Create plot using Observable Plot
+  const plotDiv = document.createElement('div');
+  const plot = Plot.plot({
+    width: 300,
+    height: 200,
+    marginLeft: 40,
+    y: {
+      grid: true,
+      label: "Count"
+    },
+    x: {
+      label: "Month"
+    },
+    marks: [
+      Plot.barY(plotData.labels.map((label, i) => ({
+        month: label,
+        value: plotData.data[i]
+      })), {
+        x: "month",
+        y: "value",
+        fill: "steelblue"
+      }),
+      Plot.ruleY([0])
+    ]
+  });
+  
+  plotDiv.appendChild(plot);
+  popupDiv.appendChild(plotDiv);
+  
+  return popupDiv;
+}
+```
+
+```{ojs}
+// Reactive cell: Update polygons when filtered_polygon_ids changes
+{
+  // Clear existing polygons
+  polygonLayer.clearLayers();
+  
+  // Add all polygons with appropriate styling
+  polygons_geojson.features.forEach(feature => {
+    const polygon_id = feature.properties.polygon_id;
+    const is_filtered = filtered_polygon_ids.includes(polygon_id);
+    
+    // Find species for this polygon
     const record = species_data.find(d => d.polygons_id === polygon_id);
-    if (record) {
-      return JSON.parse(record.plot);
-    }
-    return null;
-  }
-  
-  // Function to create popup content with plot
-  function createPopupContent(polygon_id, species_name) {
-    const plotData = getPlotData(polygon_id);
-    if (!plotData) return `<b>No data available</b>`;
+    const species_name = record ? record.species : 'Unknown';
     
-    const popupDiv = document.createElement('div');
-    popupDiv.style.minWidth = '300px';
+    // Style based on whether it's in filtered set
+    const style = {
+      fillColor: is_filtered ? '#3388ff' : '#cccccc',
+      weight: 2,
+      opacity: 1,
+      color: is_filtered ? '#0066cc' : '#999999',
+      fillOpacity: is_filtered ? 0.6 : 0.3
+    };
     
-    // Add title
-    const title = document.createElement('h4');
-    title.textContent = `${species_name} - ${polygon_id}`;
-    title.style.marginTop = '0';
-    popupDiv.appendChild(title);
-    
-    // Create plot using Observable Plot
-    const plotDiv = document.createElement('div');
-    const plot = Plot.plot({
-      width: 300,
-      height: 200,
-      marginLeft: 40,
-      y: {
-        grid: true,
-        label: "Count"
-      },
-      x: {
-        label: "Month"
-      },
-      marks: [
-        Plot.barY(plotData.labels.map((label, i) => ({
-          month: label,
-          value: plotData.data[i]
-        })), {
-          x: "month",
-          y: "value",
-          fill: "steelblue"
-        }),
-        Plot.ruleY([0])
-      ]
-    });
-    
-    plotDiv.appendChild(plot);
-    popupDiv.appendChild(plotDiv);
-    
-    return popupDiv;
-  }
-  
-  // Function to update polygons based on selected species
-  function updatePolygons() {
-    // Clear existing polygons
-    polygonLayer.clearLayers();
-    
-    // Add filtered polygons
-    polygons_geojson.features.forEach(feature => {
-      const polygon_id = feature.properties.polygon_id;
-      const is_filtered = filtered_polygon_ids.includes(polygon_id);
-      
-      // Find species for this polygon
-      const record = species_data.find(d => d.polygons_id === polygon_id);
-      const species_name = record ? record.species : 'Unknown';
-      
-      // Style based on whether it's in filtered set
-      const style = {
-        fillColor: is_filtered ? '#3388ff' : '#cccccc',
-        weight: 2,
-        opacity: 1,
-        color: is_filtered ? '#0066cc' : '#999999',
-        fillOpacity: is_filtered ? 0.6 : 0.3
-      };
-      
-      const layer = L.geoJSON(feature, {
-        style: style,
-        onEachFeature: (feature, layer) => {
-          // Add tooltip
-          layer.bindTooltip(`${polygon_id} (${species_name})`, {
-            permanent: false,
-            direction: 'center'
+    const layer = L.geoJSON(feature, {
+      style: style,
+      onEachFeature: (feature, layer) => {
+        // Add tooltip
+        layer.bindTooltip(`${polygon_id} (${species_name})`, {
+          permanent: false,
+          direction: 'center'
+        });
+        
+        // Add click handler with popup
+        if (is_filtered) {
+          layer.on('click', () => {
+            const popupContent = createPopupContent(polygon_id, species_name);
+            L.popup()
+              .setLatLng(layer.getBounds().getCenter())
+              .setContent(popupContent)
+              .openOn(map);
           });
           
-          // Add click handler with popup
-          if (is_filtered) {
-            layer.on('click', () => {
-              const popupContent = createPopupContent(polygon_id, species_name);
-              L.popup()
-                .setLatLng(layer.getBounds().getCenter())
-                .setContent(popupContent)
-                .openOn(map);
-            });
-            
-            // Change cursor on hover
-            layer.on('mouseover', () => {
-              layer.setStyle({ fillOpacity: 0.8 });
-            });
-            layer.on('mouseout', () => {
-              layer.setStyle({ fillOpacity: 0.6 });
-            });
-          }
+          // Change cursor on hover
+          layer.on('mouseover', () => {
+            layer.setStyle({ fillOpacity: 0.8 });
+          });
+          layer.on('mouseout', () => {
+            layer.setStyle({ fillOpacity: 0.6 });
+          });
         }
-      });
-      
-      layer.addTo(polygonLayer);
+      }
     });
     
-    // Fit map to filtered polygons if any
-    if (filtered_polygon_ids.length > 0) {
-      const bounds = polygonLayer.getBounds();
-      if (bounds.isValid()) {
-        map.fitBounds(bounds, { padding: [50, 50] });
-      }
+    layer.addTo(polygonLayer);
+  });
+  
+  // Fit map to filtered polygons if any
+  if (filtered_polygon_ids.length > 0) {
+    const bounds = polygonLayer.getBounds();
+    if (bounds.isValid()) {
+      map.fitBounds(bounds, { padding: [50, 50] });
     }
   }
-  
-  // Update polygons when filtered_polygon_ids changes
-  // This will be triggered automatically by Observable's reactive system
-  filtered_polygon_ids; // Add dependency to trigger reactivity
-  updatePolygons();
-  
-  return map_container;
 }
 ```
 
