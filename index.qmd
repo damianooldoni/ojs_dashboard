@@ -226,6 +226,6 @@ function createPopupContent(polygon_id, species_name) {
 ---
 
 **Instructions:**
-1. Select a species from the dropdown on the left
+1. Type a species name in the text input on the left (autocomplete suggestions will appear)
 2. The map will highlight polygons containing that species in blue
 3. Click on any highlighted polygon to view its plot in a popup
