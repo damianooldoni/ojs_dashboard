@@ -174,8 +174,8 @@ function createPopupContent(polygon_id, species_name) {
       style: style,
       onEachFeature: (feature, layer) => {
         // Add tooltip showing all species in this polygon
-        const tooltip_text = species_count > 0 
-          ? `${polygon_id}: ${all_species.join(', ')} (${species_count} species)`
+        const tooltip_text = all_species.length > 0 
+          ? `${polygon_id}: ${all_species.join(', ')} (${all_species.length} species)`
           : `${polygon_id}: No species data`;
         
         layer.bindTooltip(tooltip_text, {
