@@ -66,11 +66,9 @@ map_container = html`<div id="map" style="height: 500px; width: 100%;"></div>`
 
 ```{ojs}
 {
-  // Initialize map
-  const container = map_container.querySelector('#map');
-  
+  // Initialize map - map_container is the div element itself
   // Create map centered on Belgium (where coordinates are)
-  const map = L.map(container).setView([51.15, 4.15], 11);
+  const map = L.map(map_container).setView([51.15, 4.15], 11);
   
   // Add base tile layer
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
