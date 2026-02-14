@@ -14,38 +14,25 @@ Stack trace:
 
 ## Root Cause
 
-The documentation files `BEFORE_AFTER.md` and `REACTIVITY_FIX.md` contained code blocks marked with the syntax:
+The documentation files `BEFORE_AFTER.md` and `REACTIVITY_FIX.md` contained code blocks marked with triple backticks followed by `{ojs}`, like this pattern: ` ``` ` + `{ojs}`.
 
-````markdown
-```javascript
-// code here
-```
-````
+This syntax tells Quarto that the code block contains **executable** OJS code. When Quarto encounters executable code blocks in a file, it requires the file to have a `.qmd` (Quarto Markdown) extension, not a plain `.md` extension.
 
-This syntax (````javascript`) tells Quarto that the code block contains **executable** OJS code. When Quarto encounters executable code blocks in a file, it requires the file to have a `.qmd` (Quarto Markdown) extension, not a plain `.md` extension.
+However, these documentation files were not meant to execute code - they were showing **example** code snippets to explain how the dashboard works. The code blocks were inside outer code fences to display them as literal text.
 
-However, these documentation files were not meant to execute code - they were showing **example** code snippets to explain how the dashboard works. The code blocks were inside outer code fences to display them as literal text, like this:
-
-````markdown
-```
-```javascript
-map = { ... }
-```
-````
-
-Despite being nested, Quarto was still detecting the inner ````javascript` markers as executable code directives.
+Despite being nested within outer fences, Quarto was still detecting the inner markers with `{ojs}` as executable code directives.
 
 ## Solution
 
-Changed all code block markers from ````javascript` to ````javascript` in the documentation files. This tells Quarto to:
+Changed all code block markers from `{ojs}` to `javascript` in the documentation files. This tells Quarto to:
 1. Treat the code as **non-executable** JavaScript for syntax highlighting
 2. Not require the `.qmd` extension
 3. Still display the code properly with syntax highlighting
 
 ### Files Modified
 
-1. **BEFORE_AFTER.md**: Changed 6 instances of ````javascript` to ````javascript`
-2. **REACTIVITY_FIX.md**: Changed 6 instances of ````javascript` to ````javascript`
+1. **BEFORE_AFTER.md**: Changed 6 instances from `{ojs}` to `javascript`
+2. **REACTIVITY_FIX.md**: Changed 6 instances from `{ojs}` to `javascript`
 
 ## Verification
 
