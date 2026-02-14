@@ -85,9 +85,11 @@ polygonLayer = L.layerGroup().addTo(map)
 ```
 
 ```{ojs}
-// Function to get plot data for a polygon
-function getPlotData(polygon_id) {
-  const record = species_data.find(d => d.polygons_id === polygon_id);
+// Function to get plot data for a specific species/polygon combination
+function getPlotData(polygon_id, species_name) {
+  const record = species_data.find(d => 
+    d.polygons_id === polygon_id && d.species === species_name
+  );
   if (record) {
     return JSON.parse(record.plot);
   }
@@ -98,7 +100,7 @@ function getPlotData(polygon_id) {
 ```{ojs}
 // Function to create popup content with plot
 function createPopupContent(polygon_id, species_name) {
-  const plotData = getPlotData(polygon_id);
+  const plotData = getPlotData(polygon_id, species_name);
   if (!plotData) return `<b>No data available</b>`;
   
   const popupDiv = document.createElement('div');
@@ -154,9 +156,10 @@ function createPopupContent(polygon_id, species_name) {
     const polygon_id = feature.properties.polygon_id;
     const is_filtered = filtered_polygon_ids.includes(polygon_id);
     
-    // Find species for this polygon
-    const record = species_data.find(d => d.polygons_id === polygon_id);
-    const species_name = record ? record.species : 'Unknown';
+    // Find all species for this polygon
+    const polygon_records = species_data.filter(d => d.polygons_id === polygon_id);
+    const all_species = polygon_records.map(d => d.species);
+    const species_count = all_species.length;
     
     // Style based on whether it's in filtered set
     const style = {
@@ -170,8 +173,12 @@ function createPopupContent(polygon_id, species_name) {
     const layer = L.geoJSON(feature, {
       style: style,
       onEachFeature: (feature, layer) => {
-        // Add tooltip
-        layer.bindTooltip(`${polygon_id} (${species_name})`, {
+        // Add tooltip showing all species in this polygon
+        const tooltip_text = species_count > 0 
+          ? `${polygon_id}: ${all_species.join(', ')} (${species_count} species)`
+          : `${polygon_id}: No species data`;
+        
+        layer.bindTooltip(tooltip_text, {
           permanent: false,
           direction: 'center'
         });
@@ -179,7 +186,8 @@ function createPopupContent(polygon_id, species_name) {
         // Add click handler with popup
         if (is_filtered) {
           layer.on('click', () => {
-            const popupContent = createPopupContent(polygon_id, species_name);
+            // Use the currently selected species for the popup
+            const popupContent = createPopupContent(polygon_id, selected_species);
             L.popup()
               .setLatLng(layer.getBounds().getCenter())
               .setContent(popupContent)

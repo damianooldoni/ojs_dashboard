@@ -1,6 +1,11 @@
 polygons_id,species,plot
 poly_1,Oak,"{""type"": ""bar"", ""data"": [12, 19, 3, 5, 2, 3], ""labels"": [""Jan"", ""Feb"", ""Mar"", ""Apr"", ""May"", ""Jun""]}"
+poly_1,Pine,"{""type"": ""bar"", ""data"": [5, 8, 12, 15, 10, 7], ""labels"": [""Jan"", ""Feb"", ""Mar"", ""Apr"", ""May"", ""Jun""]}"
 poly_2,Pine,"{""type"": ""bar"", ""data"": [7, 11, 5, 8, 3, 7], ""labels"": [""Jan"", ""Feb"", ""Mar"", ""Apr"", ""May"", ""Jun""]}"
+poly_2,Birch,"{""type"": ""bar"", ""data"": [3, 6, 9, 12, 8, 5], ""labels"": [""Jan"", ""Feb"", ""Mar"", ""Apr"", ""May"", ""Jun""]}"
 poly_3,Oak,"{""type"": ""bar"", ""data"": [15, 21, 7, 9, 4, 6], ""labels"": [""Jan"", ""Feb"", ""Mar"", ""Apr"", ""May"", ""Jun""]}"
+poly_3,Pine,"{""type"": ""bar"", ""data"": [8, 12, 15, 18, 14, 10], ""labels"": [""Jan"", ""Feb"", ""Mar"", ""Apr"", ""May"", ""Jun""]}"
+poly_3,Birch,"{""type"": ""bar"", ""data"": [10, 13, 8, 11, 9, 7], ""labels"": [""Jan"", ""Feb"", ""Mar"", ""Apr"", ""May"", ""Jun""]}"
 poly_4,Birch,"{""type"": ""bar"", ""data"": [9, 14, 6, 7, 5, 8], ""labels"": [""Jan"", ""Feb"", ""Mar"", ""Apr"", ""May"", ""Jun""]}"
+poly_4,Oak,"{""type"": ""bar"", ""data"": [6, 10, 14, 17, 12, 9], ""labels"": [""Jan"", ""Feb"", ""Mar"", ""Apr"", ""May"", ""Jun""]}"
 poly_5,Pine,"{""type"": ""bar"", ""data"": [6, 10, 4, 6, 2, 5], ""labels"": [""Jan"", ""Feb"", ""Mar"", ""Apr"", ""May"", ""Jun""]}"
