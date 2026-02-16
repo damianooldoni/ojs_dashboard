@@ -35,11 +35,12 @@ unique_species = [...new Set(species_data.map(d => d.species))].sort()
 ### Select Species
 
 ```{ojs}
-viewof selected_species = Inputs.select(
-  unique_species,
+viewof selected_species = Inputs.text(
   {
     label: "Species:",
-    value: unique_species[0]
+    placeholder: "Type to search species...",
+    value: unique_species[0],
+    datalist: unique_species
   }
 )
 ```
@@ -47,12 +48,19 @@ viewof selected_species = Inputs.select(
 ### Filtered Polygons
 
 ```{ojs}
-// Filter data based on selected species
-filtered_data = species_data.filter(d => d.species === selected_species)
+// Validate that selected species exists in the list
+validated_species = unique_species.includes(selected_species) 
+  ? selected_species 
+  : unique_species[0]
+```
+
+```{ojs}
+// Filter data based on validated species
+filtered_data = species_data.filter(d => d.species === validated_species)
 filtered_polygon_ids = filtered_data.map(d => d.polygons_id)
 ```
 
-Showing **${filtered_polygon_ids.length}** polygon(s) for **${selected_species}**
+Showing **${filtered_polygon_ids.length}** polygon(s) for **${validated_species}**
 
 :::
 
@@ -186,8 +194,8 @@ function createPopupContent(polygon_id, species_name) {
         // Add click handler with popup
         if (is_filtered) {
           layer.on('click', () => {
-            // Use the currently selected species for the popup
-            const popupContent = createPopupContent(polygon_id, selected_species);
+            // Use the currently validated species for the popup
+            const popupContent = createPopupContent(polygon_id, validated_species);
             L.popup()
               .setLatLng(layer.getBounds().getCenter())
               .setContent(popupContent)
@@ -225,6 +233,6 @@ function createPopupContent(polygon_id, species_name) {
 ---
 
 **Instructions:**
-1. Select a species from the dropdown on the left
+1. Type a species name in the text input on the left (autocomplete suggestions will appear)
 2. The map will highlight polygons containing that species in blue
 3. Click on any highlighted polygon to view its plot in a popup
