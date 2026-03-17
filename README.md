@@ -13,12 +13,11 @@ Interactive dashboard using Observable JavaScript (OJS) in Quarto for visualizin
 
 The dashboard works with two data files:
 
-1. **species_plots.csv**: Tabular data with columns:
+1. **species_polygons.csv**: Tabular data with columns:
    - `polygons_id`: Polygon identifiers
    - `species`: Species names
-   - `plot`: Plot data (JSON format)
    
-   **Note**: The combination of `polygons_id` and `species` is unique. Multiple species can exist in the same polygon, and each unique species/polygon combination has its own associated plot.
+   **Note**: The combination of `polygons_id` and `species` is unique. Multiple species can exist in the same polygon, and each unique species/polygon combination has a corresponding PNG plot in `docs/assets/plots/`.
 
 2. **polygons.geojson**: Geospatial data with polygon geometries and `polygon_id` properties
 
@@ -37,24 +36,35 @@ The sample dataset includes 5 polygons with varying species compositions:
 
 Install [Quarto](https://quarto.org/docs/get-started/) on your system.
 
-### Running the Dashboard
+### Running the Dashboard locally
 
-1. Clone the repository
-2. Navigate to the project directory
-3. Run:
+1. Clone the repository:
    ```bash
-   quarto preview index.qmd
+   git clone https://github.com/damianooldoni/ojs_dashboard.git
+   cd ojs_dashboard
    ```
-4. Open your browser to view the dashboard
+2. Start the preview server:
+   ```bash
+   quarto preview
+   ```
+   Quarto automatically opens the dashboard in your default browser (usually at
+   <http://localhost:4848>). The page reloads whenever you save changes to
+   `index.qmd` or any other source file.
 
-### Building the Site
+> **Out of the box**: sample data files (`data/species_polygons.csv`,
+> `data/polygons.geojson`) and the corresponding PNG plots
+> (`docs/assets/plots/`) are already committed to the repository, so the
+> dashboard is fully functional immediately after cloning.
 
-To build the static site:
+### Building the Static Site
+
+To produce a one-time static build (no live-reload server):
 ```bash
 quarto render
 ```
 
-The output will be in the `docs/` directory.
+The rendered site is written to the `docs/` directory and can be served by any
+static file host (e.g. GitHub Pages).
 
 ## How It Works
 
@@ -66,10 +76,56 @@ The output will be in the `docs/` directory.
 
 **Important**: When you click on a polygon, the popup shows the plot data specifically for the selected species in that polygon. Since polygons can contain multiple species, each species/polygon combination has its own unique plot.
 
+## Plot Images (PNG)
+
+Popup plots are rendered from pre-generated PNG images stored under `docs/assets/plots/`.
+When a user clicks a highlighted polygon, the dashboard constructs the image path from the
+selected species name and the polygon identifier, then shows the PNG inside the popup.
+If the PNG cannot be loaded the popup shows "No plot available for this selection.".
+
+### Where to place PNGs
+
+```
+docs/
+└── assets/
+    └── plots/
+        ├── oak__poly_1.png
+        ├── pine__poly_1.png
+        └── ...
+```
+
+Because `docs/` is the Quarto output directory published to GitHub Pages, any file placed
+inside it is served at the site root.  At build time `quarto render` copies additional
+resource files into `docs/` as needed, but the `assets/plots/` sub-folder is meant to be
+**committed directly** so that GitHub Pages serves the PNGs alongside the built HTML.
+
+### Filename convention
+
+| Component | Rule | Example |
+|-----------|------|---------|
+| species slug | NFD-normalise → strip diacritics → lowercase; runs of non-alphanumeric chars → `_`; trim leading/trailing `_` | `"Oak"` → `oak`, `"Pinus sylvestris"` → `pinus_sylvestris`, `"Séneçon"` → `senecon` |
+| separator | double underscore `__` | — |
+| polygon ID | keep only `[a-zA-Z0-9_-]`, replace anything else with `_` | `poly_1` → `poly_1` |
+| extension | `.png` | — |
+
+Full pattern: **`{species_slug}__{polygon_id}.png`**
+
+Examples:
+- `oak__poly_1.png` — Oak in polygon poly\_1
+- `pinus_sylvestris__poly_3.png` — *Pinus sylvestris* in polygon poly\_3
+- `birch__poly_2.png` — Birch in polygon poly\_2
+
+### How popups resolve an image
+
+1. The JavaScript helper `slugify(str)` converts `species_name` to the slug form (NFD normalisation → diacritic stripping → lowercase → replace non-alphanumeric runs with `_`).
+2. The polygon ID is sanitised with `sanitizeId(id)` (only `[a-zA-Z0-9_-]` kept).
+3. The path `assets/plots/<slug>__<sanitized_id>.png` is set as the `<img src>`.
+4. If the browser can load the image it is displayed (max-width: 300 px).
+5. If loading fails (`onerror`) the popup shows "No plot available for this selection.".
+
 ## Technologies Used
 
 - [Quarto](https://quarto.org/): Document publishing system
 - [Observable JavaScript (OJS)](https://quarto.org/docs/interactive/ojs/): Reactive JavaScript runtime
 - [Leaflet](https://leafletjs.com/): Interactive maps
-- [Observable Plot](https://observablehq.com/plot/): Data visualization
 - [D3.js](https://d3js.org/): Data manipulation
