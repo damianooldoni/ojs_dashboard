@@ -106,49 +106,69 @@ function getPlotData(polygon_id, species_name) {
 ```
 
 ```{ojs}
+// Build a URL-safe slug from a string: lowercase, non-alphanumeric runs → '_'
+// Returns 'unknown' when the result would otherwise be empty.
+function slugify(str) {
+  const slug = str.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+  return slug.length > 0 ? slug : 'unknown';
+}
+
 // Function to create popup content with plot
+// Primary: renders a pre-rendered PNG from docs/assets/plots/<species_slug>__<polygon_id>.png
+// Fallback: falls back to Observable Plot bar chart from JSON data (or a plain message)
 function createPopupContent(polygon_id, species_name) {
-  const plotData = getPlotData(polygon_id, species_name);
-  if (!plotData) return `<b>No data available</b>`;
-  
   const popupDiv = document.createElement('div');
   popupDiv.style.minWidth = '300px';
-  
-  // Add title
+
+  // Title
   const title = document.createElement('h4');
   title.textContent = `${species_name} - ${polygon_id}`;
   title.style.marginTop = '0';
   popupDiv.appendChild(title);
-  
-  // Create plot using Observable Plot
-  const plotDiv = document.createElement('div');
-  const plot = Plot.plot({
-    width: 300,
-    height: 200,
-    marginLeft: 40,
-    y: {
-      grid: true,
-      label: "Count"
-    },
-    x: {
-      label: "Month"
-    },
-    marks: [
-      Plot.barY(plotData.labels.map((label, i) => ({
-        month: label,
-        value: plotData.data[i]
-      })), {
-        x: "month",
-        y: "value",
-        fill: "steelblue"
-      }),
-      Plot.ruleY([0])
-    ]
-  });
-  
-  plotDiv.appendChild(plot);
-  popupDiv.appendChild(plotDiv);
-  
+
+  // Build PNG path: assets/plots/<species_slug>__<polygon_id>.png
+  const imgSrc = `assets/plots/${slugify(species_name)}__${polygon_id}.png`;
+
+  // Primary: PNG image
+  const img = document.createElement('img');
+  img.src = imgSrc;
+  img.alt = `Plot for ${species_name} in ${polygon_id}`;
+  img.style.maxWidth = '300px';
+  img.style.height = 'auto';
+  img.style.display = 'block';
+  popupDiv.appendChild(img);
+
+  // Fallback container (hidden by default)
+  const fallbackDiv = document.createElement('div');
+  fallbackDiv.style.display = 'none';
+  popupDiv.appendChild(fallbackDiv);
+
+  img.onerror = () => {
+    // Hide broken image; show Observable Plot fallback or plain message
+    img.style.display = 'none';
+    fallbackDiv.style.display = '';
+    const plotData = getPlotData(polygon_id, species_name);
+    if (plotData) {
+      const plot = Plot.plot({
+        width: 300,
+        height: 200,
+        marginLeft: 40,
+        y: { grid: true, label: "Count" },
+        x: { label: "Month" },
+        marks: [
+          Plot.barY(plotData.labels.map((label, i) => ({
+            month: label,
+            value: plotData.data[i]
+          })), { x: "month", y: "value", fill: "steelblue" }),
+          Plot.ruleY([0])
+        ]
+      });
+      fallbackDiv.appendChild(plot);
+    } else {
+      fallbackDiv.textContent = 'No plot data available for this selection.';
+    }
+  };
+
   return popupDiv;
 }
 ```

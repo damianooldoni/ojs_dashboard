@@ -66,6 +66,55 @@ The output will be in the `docs/` directory.
 
 **Important**: When you click on a polygon, the popup shows the plot data specifically for the selected species in that polygon. Since polygons can contain multiple species, each species/polygon combination has its own unique plot.
 
+## Plot Images (PNG)
+
+Popup plots are rendered from pre-generated PNG images stored under `docs/assets/plots/`.
+When a user clicks a highlighted polygon, the dashboard constructs the image path from the
+selected species name and the polygon identifier, then shows the PNG inside the popup.
+If the PNG is not found the popup automatically falls back to the Observable Plot bar chart
+rendered from the JSON data in `species_plots.csv`.
+
+### Where to place PNGs
+
+```
+docs/
+└── assets/
+    └── plots/
+        ├── oak__poly_1.png
+        ├── pine__poly_1.png
+        └── ...
+```
+
+Because `docs/` is the Quarto output directory published to GitHub Pages, any file placed
+inside it is served at the site root.  At build time `quarto render` copies additional
+resource files into `docs/` as needed, but the `assets/plots/` sub-folder is meant to be
+**committed directly** so that GitHub Pages serves the PNGs alongside the built HTML.
+
+### Filename convention
+
+| Component | Rule | Example |
+|-----------|------|---------|
+| species slug | lowercase; runs of non-alphanumeric chars → `_`; trim leading/trailing `_` | `"Oak"` → `oak`, `"Pinus sylvestris"` → `pinus_sylvestris` |
+| separator | double underscore `__` | — |
+| polygon ID | as-is from the `polygons_id` column | `poly_1` |
+| extension | `.png` | — |
+
+Full pattern: **`{species_slug}__{polygon_id}.png`**
+
+Examples:
+- `oak__poly_1.png` — Oak in polygon poly\_1
+- `pinus_sylvestris__poly_3.png` — *Pinus sylvestris* in polygon poly\_3
+- `birch__poly_2.png` — Birch in polygon poly\_2
+
+### How popups resolve an image
+
+1. The JavaScript helper `slugify(str)` converts `species_name` to the slug form.
+2. The path `assets/plots/<slug>__<polygon_id>.png` is set as the `<img src>`.
+3. If the browser can load the image it is displayed (max-width: 300 px).
+4. If loading fails (`onerror`) the popup falls back to the Observable Plot chart built
+   from the JSON stored in `species_plots.csv`, or shows "No image available" when no
+   JSON data exists either.
+
 ## Technologies Used
 
 - [Quarto](https://quarto.org/): Document publishing system
