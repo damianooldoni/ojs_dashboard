@@ -17,7 +17,7 @@ The dashboard works with two data files:
    - `polygons_id`: Polygon identifiers
    - `species`: Species names
    
-   **Note**: The combination of `polygons_id` and `species` is unique. Multiple species can exist in the same polygon, and each unique species/polygon combination has a corresponding PNG plot in `docs/assets/plots/`.
+   **Note**: The combination of `polygons_id` and `species` is unique. Multiple species can exist in the same polygon, and each unique species/polygon combination has a corresponding PNG plot in `assets/plots/`.
 
 2. **polygons.geojson**: Geospatial data with polygon geometries and `polygon_id` properties
 
@@ -53,7 +53,7 @@ Install [Quarto](https://quarto.org/docs/get-started/) on your system.
 
 > **Out of the box**: sample data files (`data/species_polygons.csv`,
 > `data/polygons.geojson`) and the corresponding PNG plots
-> (`docs/assets/plots/`) are already committed to the repository, so the
+> (`assets/plots/`) are already committed to the repository, so the
 > dashboard is fully functional immediately after cloning.
 
 ### Building the Static Site
@@ -78,7 +78,7 @@ static file host (e.g. GitHub Pages).
 
 ## Plot Images (PNG)
 
-Popup plots are rendered from pre-generated PNG images stored under `docs/assets/plots/`.
+Popup plots are rendered from pre-generated PNG images stored under `assets/plots/`.
 When a user clicks a highlighted polygon, the dashboard constructs the image path from the
 selected species name and the polygon identifier, then shows the PNG inside the popup.
 If the PNG cannot be loaded the popup shows "No plot available for this selection.".
@@ -86,18 +86,15 @@ If the PNG cannot be loaded the popup shows "No plot available for this selectio
 ### Where to place PNGs
 
 ```
-docs/
-└── assets/
-    └── plots/
-        ├── oak__poly_1.png
-        ├── pine__poly_1.png
-        └── ...
+assets/
+└── plots/
+    ├── oak__poly_1.png
+    ├── pine__poly_1.png
+    └── ...
 ```
 
-Because `docs/` is the Quarto output directory published to GitHub Pages, any file placed
-inside it is served at the site root.  At build time `quarto render` copies additional
-resource files into `docs/` as needed, but the `assets/plots/` sub-folder is meant to be
-**committed directly** so that GitHub Pages serves the PNGs alongside the built HTML.
+The `assets/` directory is a source-tracked Quarto resource. At build time `quarto render`
+copies it into `docs/assets/` so that GitHub Pages serves the PNGs alongside the built HTML.
 
 ### Filename convention
 
