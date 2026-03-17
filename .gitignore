@@ -41,6 +41,7 @@ vignettes/*.pdf
 
 # Quarto
 /.quarto/
+/docs/
 
 # translation temp files
 po/*~
