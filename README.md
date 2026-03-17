@@ -36,24 +36,35 @@ The sample dataset includes 5 polygons with varying species compositions:
 
 Install [Quarto](https://quarto.org/docs/get-started/) on your system.
 
-### Running the Dashboard
+### Running the Dashboard locally
 
-1. Clone the repository
-2. Navigate to the project directory
-3. Run:
+1. Clone the repository:
    ```bash
-   quarto preview index.qmd
+   git clone https://github.com/damianooldoni/ojs_dashboard.git
+   cd ojs_dashboard
    ```
-4. Open your browser to view the dashboard
+2. Start the preview server:
+   ```bash
+   quarto preview
+   ```
+   Quarto automatically opens the dashboard in your default browser (usually at
+   <http://localhost:4848>). The page reloads whenever you save changes to
+   `index.qmd` or any other source file.
 
-### Building the Site
+> **Out of the box**: sample data files (`data/species_polygons.csv`,
+> `data/polygons.geojson`) and the corresponding PNG plots
+> (`docs/assets/plots/`) are already committed to the repository, so the
+> dashboard is fully functional immediately after cloning.
 
-To build the static site:
+### Building the Static Site
+
+To produce a one-time static build (no live-reload server):
 ```bash
 quarto render
 ```
 
-The output will be in the `docs/` directory.
+The rendered site is written to the `docs/` directory and can be served by any
+static file host (e.g. GitHub Pages).
 
 ## How It Works
 
