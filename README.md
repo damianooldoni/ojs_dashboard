@@ -13,12 +13,11 @@ Interactive dashboard using Observable JavaScript (OJS) in Quarto for visualizin
 
 The dashboard works with two data files:
 
-1. **species_plots.csv**: Tabular data with columns:
+1. **species_polygons.csv**: Tabular data with columns:
    - `polygons_id`: Polygon identifiers
    - `species`: Species names
-   - `plot`: Plot data (JSON format)
    
-   **Note**: The combination of `polygons_id` and `species` is unique. Multiple species can exist in the same polygon, and each unique species/polygon combination has its own associated plot.
+   **Note**: The combination of `polygons_id` and `species` is unique. Multiple species can exist in the same polygon, and each unique species/polygon combination has a corresponding PNG plot in `docs/assets/plots/`.
 
 2. **polygons.geojson**: Geospatial data with polygon geometries and `polygon_id` properties
 
@@ -71,8 +70,7 @@ The output will be in the `docs/` directory.
 Popup plots are rendered from pre-generated PNG images stored under `docs/assets/plots/`.
 When a user clicks a highlighted polygon, the dashboard constructs the image path from the
 selected species name and the polygon identifier, then shows the PNG inside the popup.
-If the PNG is not found the popup automatically falls back to the Observable Plot bar chart
-rendered from the JSON data in `species_plots.csv`.
+If the PNG cannot be loaded the popup shows "No plot available for this selection.".
 
 ### Where to place PNGs
 
@@ -94,9 +92,9 @@ resource files into `docs/` as needed, but the `assets/plots/` sub-folder is mea
 
 | Component | Rule | Example |
 |-----------|------|---------|
-| species slug | lowercase; runs of non-alphanumeric chars → `_`; trim leading/trailing `_` | `"Oak"` → `oak`, `"Pinus sylvestris"` → `pinus_sylvestris` |
+| species slug | NFD-normalise → strip diacritics → lowercase; runs of non-alphanumeric chars → `_`; trim leading/trailing `_` | `"Oak"` → `oak`, `"Pinus sylvestris"` → `pinus_sylvestris`, `"Séneçon"` → `senecon` |
 | separator | double underscore `__` | — |
-| polygon ID | as-is from the `polygons_id` column | `poly_1` |
+| polygon ID | keep only `[a-zA-Z0-9_-]`, replace anything else with `_` | `poly_1` → `poly_1` |
 | extension | `.png` | — |
 
 Full pattern: **`{species_slug}__{polygon_id}.png`**
@@ -108,17 +106,15 @@ Examples:
 
 ### How popups resolve an image
 
-1. The JavaScript helper `slugify(str)` converts `species_name` to the slug form.
-2. The path `assets/plots/<slug>__<polygon_id>.png` is set as the `<img src>`.
-3. If the browser can load the image it is displayed (max-width: 300 px).
-4. If loading fails (`onerror`) the popup falls back to the Observable Plot chart built
-   from the JSON stored in `species_plots.csv`, or shows "No image available" when no
-   JSON data exists either.
+1. The JavaScript helper `slugify(str)` converts `species_name` to the slug form (NFD normalisation → diacritic stripping → lowercase → replace non-alphanumeric runs with `_`).
+2. The polygon ID is sanitised with `sanitizeId(id)` (only `[a-zA-Z0-9_-]` kept).
+3. The path `assets/plots/<slug>__<sanitized_id>.png` is set as the `<img src>`.
+4. If the browser can load the image it is displayed (max-width: 300 px).
+5. If loading fails (`onerror`) the popup shows "No plot available for this selection.".
 
 ## Technologies Used
 
 - [Quarto](https://quarto.org/): Document publishing system
 - [Observable JavaScript (OJS)](https://quarto.org/docs/interactive/ojs/): Reactive JavaScript runtime
 - [Leaflet](https://leafletjs.com/): Interactive maps
-- [Observable Plot](https://observablehq.com/plot/): Data visualization
 - [D3.js](https://d3js.org/): Data manipulation

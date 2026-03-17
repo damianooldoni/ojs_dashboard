@@ -10,7 +10,6 @@ format:
 // Load required libraries
 d3 = require("d3@7")
 L = require("leaflet@1.9.4")
-Plot = require("@observablehq/plot@0.6")
 
 // Add Leaflet CSS
 html`<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />`
@@ -18,7 +17,7 @@ html`<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.c
 
 ```{ojs}
 // Load data files
-species_data = d3.csv("data/species_plots.csv")
+species_data = d3.csv("data/species_polygons.csv")
 polygons_geojson = d3.json("data/polygons.geojson")
 ```
 
@@ -93,29 +92,28 @@ polygonLayer = L.layerGroup().addTo(map)
 ```
 
 ```{ojs}
-// Function to get plot data for a specific species/polygon combination
-function getPlotData(polygon_id, species_name) {
-  const record = species_data.find(d => 
-    d.polygons_id === polygon_id && d.species === species_name
-  );
-  if (record) {
-    return JSON.parse(record.plot);
-  }
-  return null;
-}
-```
-
-```{ojs}
 // Build a URL-safe slug from a string: lowercase, non-alphanumeric runs → '_'
-// Returns 'unknown' when the result would otherwise be empty.
+// Non-ASCII letters are normalised (NFD) so that accented chars are reduced to
+// their base letter before stripping. Returns 'unknown' for empty results.
 function slugify(str) {
-  const slug = str.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+  const slug = str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')   // strip combining diacritics
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_|_$/g, '');
   return slug.length > 0 ? slug : 'unknown';
 }
 
-// Function to create popup content with plot
-// Primary: renders a pre-rendered PNG from docs/assets/plots/<species_slug>__<polygon_id>.png
-// Fallback: falls back to Observable Plot bar chart from JSON data (or a plain message)
+// Sanitise a polygon ID so it can be used safely in a file path.
+// Keeps only alphanumeric chars, hyphens and underscores.
+function sanitizeId(id) {
+  return String(id).replace(/[^a-zA-Z0-9_-]/g, '_');
+}
+
+// Function to create popup content with a pre-rendered PNG plot.
+// Displays the image at assets/plots/<species_slug>__<polygon_id>.png.
+// Shows "No plot available" when the image cannot be loaded.
 function createPopupContent(polygon_id, species_name) {
   const popupDiv = document.createElement('div');
   popupDiv.style.minWidth = '300px';
@@ -126,49 +124,21 @@ function createPopupContent(polygon_id, species_name) {
   title.style.marginTop = '0';
   popupDiv.appendChild(title);
 
-  // Build PNG path: assets/plots/<species_slug>__<polygon_id>.png
-  const imgSrc = `assets/plots/${slugify(species_name)}__${polygon_id}.png`;
-
-  // Primary: PNG image
+  // PNG image: assets/plots/<species_slug>__<sanitized_polygon_id>.png
   const img = document.createElement('img');
-  img.src = imgSrc;
+  img.src = `assets/plots/${slugify(species_name)}__${sanitizeId(polygon_id)}.png`;
   img.alt = `Plot for ${species_name} in ${polygon_id}`;
   img.style.maxWidth = '300px';
   img.style.height = 'auto';
   img.style.display = 'block';
-  popupDiv.appendChild(img);
-
-  // Fallback container (hidden by default)
-  const fallbackDiv = document.createElement('div');
-  fallbackDiv.style.display = 'none';
-  popupDiv.appendChild(fallbackDiv);
 
   img.onerror = () => {
-    // Hide broken image; show Observable Plot fallback or plain message
-    img.style.display = 'none';
-    fallbackDiv.style.display = '';
-    const plotData = getPlotData(polygon_id, species_name);
-    if (plotData) {
-      const plot = Plot.plot({
-        width: 300,
-        height: 200,
-        marginLeft: 40,
-        y: { grid: true, label: "Count" },
-        x: { label: "Month" },
-        marks: [
-          Plot.barY(plotData.labels.map((label, i) => ({
-            month: label,
-            value: plotData.data[i]
-          })), { x: "month", y: "value", fill: "steelblue" }),
-          Plot.ruleY([0])
-        ]
-      });
-      fallbackDiv.appendChild(plot);
-    } else {
-      fallbackDiv.textContent = 'No plot data available for this selection.';
-    }
+    img.replaceWith(Object.assign(document.createElement('p'), {
+      textContent: 'No plot available for this selection.'
+    }));
   };
 
+  popupDiv.appendChild(img);
   return popupDiv;
 }
 ```
